@@ -1,0 +1,43 @@
+@import "../constantes";
+
+#contactmodalbody {
+	button {
+		width:170px;
+		
+		.fa-chevron-left {
+			padding-top:4px;
+		}
+		#libelleretour {
+			color: black;
+		}
+	}
+	.errormessage {
+		color: red;
+		font-size: 85%;
+	}
+	label {
+		padding-bottom:3px;
+		padding-top:10px;
+	}
+	#label-copie {
+		padding-top:4px;
+	}
+
+	.fa .fa-chevron-left {
+		padding-top:5px;
+	}
+	.block-retour-ou-envoi {
+		.retour {
+			text-align: left;
+			@media (max-width: 992px) {
+				text-align: center;
+			}
+		}
+		.envoi {
+			text-align: right;
+			@media (max-width: 992px) {
+				text-align: center;
+			}
+		}
+	}
+}

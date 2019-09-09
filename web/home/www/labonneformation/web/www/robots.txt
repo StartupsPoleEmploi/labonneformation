@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /engager-les-demarches/
+Disallow: /simulez-vos-droits-a-la-formation/
+Disallow: /result.php
+Disallow: /peconnect
+Disallow: *financement=*
+Disallow: *modalite=*
+Disallow: *niveausortie=*
+Disallow: *certification=*
+Sitemap: https://labonneformation.pole-emploi.fr/sitemap.xml

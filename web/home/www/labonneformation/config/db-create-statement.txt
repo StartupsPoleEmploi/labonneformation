@@ -1,0 +1,471 @@
+CREATE TABLE `action` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `ad_id` int(10) unsigned DEFAULT NULL,
+  `idformintercarif` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `ad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID Autoincrement',
+  `createdat` datetime NOT NULL COMMENT 'Creation date. At insertion.',
+  `updatedat` datetime DEFAULT NULL COMMENT 'Update date',
+  `deletedat` datetime DEFAULT NULL COMMENT 'Deletion date',
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL COMMENT 'ACTIVE, INACTIVE, DELETED',
+  `flags` int(11) DEFAULT NULL COMMENT 'Somes flags',
+  `catalogue_id` int(10) unsigned NOT NULL DEFAULT '1',
+  `orga_id` int(11) NOT NULL,
+  `beganat` datetime DEFAULT NULL,
+  `endedat` datetime DEFAULT NULL,
+  `duration` bigint(20) NOT NULL DEFAULT '0',
+  `idorgaintercarif` varchar(64) NOT NULL,
+  `idformintercarif` varchar(32) NOT NULL,
+  `formacode` varchar(64) NOT NULL,
+  `romecode` varchar(64) NOT NULL,
+  `title` varchar(256) CHARACTER SET utf8 NOT NULL COMMENT 'Title of the ad',
+  `objective` text CHARACTER SET utf8 NOT NULL,
+  `content` mediumtext CHARACTER SET utf8mb4,
+  `lat` double NOT NULL,
+  `lng` double NOT NULL,
+  `locationpath` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+  `locationsearch` varchar(256) DEFAULT NULL,
+  `zipcode` varchar(16) CHARACTER SET utf8 NOT NULL,
+  `firsttitle` varchar(256) DEFAULT NULL,
+  `codefinanceur` text NOT NULL,
+  `niveausortie` int(11) NOT NULL,
+  `extradata` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unicite` (`idformintercarif`,`catalogue_id`) USING BTREE,
+  KEY `idorgaintercarif` (`idorgaintercarif`,`status`) USING BTREE,
+  KEY `titleslug` (`firsttitle`),
+  KEY `flags` (`status`,`endedat`,`flags`) USING BTREE,
+  KEY `annuaire` (`orga_id`,`status`,`endedat`) USING BTREE,
+  KEY `idformintercarif` (`idformintercarif`,`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=480956 DEFAULT CHARSET=latin1
+
+CREATE TABLE `adcpf` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `adsession_id` bigint(20) NOT NULL,
+  `ad_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `idformintercarif` varchar(32) NOT NULL,
+  `source` text,
+  `beganat` datetime NOT NULL,
+  `endedat` datetime NOT NULL,
+  `codecpf` varchar(16) DEFAULT NULL,
+  `type` enum('TOUTPUBLIC','DE','SALARIE') NOT NULL,
+  `branche` text NOT NULL,
+  `interbranche` int(11) DEFAULT NULL,
+  `locationpath` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `adid_beganat_endedat_type` (`ad_id`,`beganat`,`endedat`,`type`),
+  KEY `idformintercarif` (`idformintercarif`,`status`),
+  KEY `new_index` (`ad_id`,`status`,`codecpf`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=344840161 DEFAULT CHARSET=latin1
+
+CREATE TABLE `adrank` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `formacode` varchar(64) NOT NULL,
+  `followed` int(11) NOT NULL,
+  `cdi` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `formacode` (`formacode`)
+) ENGINE=InnoDB AUTO_INCREMENT=2607 DEFAULT CHARSET=latin1
+
+CREATE TABLE `adrankbassin` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `formacode` varchar(64) NOT NULL,
+  `codeinsee` varchar(16) NOT NULL,
+  `citypath` varchar(32) DEFAULT NULL,
+  `bassinrate` float DEFAULT NULL,
+  `departementrate` float DEFAULT NULL,
+  `regionalrate` float DEFAULT NULL,
+  `nationalrate` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `formacode` (`status`,`codeinsee`,`formacode`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=170272 DEFAULT CHARSET=utf8
+
+CREATE TABLE `adrankdepartement` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `formacode` varchar(64) NOT NULL,
+  `departementpath` varchar(32) NOT NULL,
+  `departementrate` float DEFAULT NULL,
+  `regionalrate` float DEFAULT NULL,
+  `nationalrate` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `formacode` (`formacode`,`departementpath`,`status`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=65329 DEFAULT CHARSET=utf8
+
+CREATE TABLE `adrankregion` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `formacode` varchar(64) NOT NULL,
+  `regionpath` varchar(32) NOT NULL,
+  `regionalrate` float DEFAULT NULL,
+  `nationalrate` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `formacode` (`formacode`,`regionpath`,`status`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=16112 DEFAULT CHARSET=utf8
+
+CREATE TABLE `anotea` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `orga_id` int(11) DEFAULT NULL,
+  `idorgaintercarif` varchar(64) NOT NULL,
+  `ad_id` int(11) DEFAULT NULL,
+  `idformintercarif` varchar(64) NOT NULL,
+  `formacode` varchar(16) NOT NULL,
+  `noteglobale` int(11) DEFAULT NULL,
+  `avisjson` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idformintercarif` (`idformintercarif`,`status`),
+  KEY `idorgaintercarif` (`idorgaintercarif`,`status`),
+  KEY `ad_id` (`ad_id`,`status`),
+  KEY `orga_id` (`orga_id`,`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `catalogue` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `comment` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1
+
+CREATE TABLE `corrector` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL DEFAULT 'ACTIVE',
+  `word` varchar(128) NOT NULL,
+  `length` int(11) NOT NULL,
+  `metaphone` varchar(128) DEFAULT NULL,
+  `soundex` varchar(128) DEFAULT NULL,
+  `count` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `word` (`word`,`length`,`status`,`count`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=13578 DEFAULT CHARSET=latin1
+
+CREATE TABLE `dpae` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime DEFAULT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `idde` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `nir` varchar(64) CHARACTER SET utf8 NOT NULL,
+  `siret` varchar(64) CHARACTER SET utf8 NOT NULL,
+  `contract` enum('CDI','CDD','INTERIM') DEFAULT NULL,
+  `beganat` datetime NOT NULL,
+  `endedat` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idde` (`idde`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `formade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `idde` varchar(16) CHARACTER SET utf8mb4 NOT NULL,
+  `idformintercarif` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `label` varchar(256) CHARACTER SET utf8mb4 NOT NULL,
+  `beganat` datetime NOT NULL,
+  `endedat` datetime NOT NULL,
+  `financement` varchar(16) CHARACTER SET utf8 NOT NULL,
+  `inscriptedat` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idde2` (`idde`,`endedat`),
+  KEY `idtraining` (`idformintercarif`,`status`) USING BTREE,
+  KEY `beganat_endedat` (`beganat`,`endedat`,`status`),
+  KEY `new_index` (`endedat`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `immersion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `locationpath` varchar(32) DEFAULT NULL,
+  `locationlabel` varchar(128) DEFAULT NULL,
+  `rome` varchar(64) DEFAULT NULL,
+  `romelabel` varchar(128) DEFAULT NULL,
+  `datedebut` date DEFAULT NULL,
+  `duree` varchar(64) DEFAULT NULL,
+  `nom` text,
+  `prenom` text,
+  `statut` varchar(64) DEFAULT NULL,
+  `identifiant` varchar(64) DEFAULT NULL,
+  `email` tinytext,
+  `entreprises` longtext,
+  `comment` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9350 DEFAULT CHARSET=utf8
+
+CREATE TABLE `orga` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `idorgaintercarif` varchar(64) NOT NULL,
+  `name` varchar(128) CHARACTER SET utf8mb4 NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `status_name` (`status`,`name`(64)),
+  KEY `idorgaintercarif` (`idorgaintercarif`(16))
+) ENGINE=InnoDB AUTO_INCREMENT=24928 DEFAULT CHARSET=latin1
+
+CREATE TABLE `orgarank` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `modifiedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `orga_id` int(11) DEFAULT NULL,
+  `idorgaintercarif` varchar(64) NOT NULL,
+  `formacode` varchar(64) NOT NULL,
+  `followed` int(11) NOT NULL,
+  `cdi` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `formacode` (`formacode`)
+) ENGINE=InnoDB AUTO_INCREMENT=3342 DEFAULT CHARSET=latin1
+
+CREATE TABLE `reference` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` int(10) unsigned NOT NULL COMMENT '1=lieu',
+  `status` int(11) NOT NULL DEFAULT '1' COMMENT '1=actif, 2=inactif, 0=supprimé',
+  `priority` int(11) NOT NULL DEFAULT '0',
+  `extradata` varchar(512) NOT NULL,
+  `level` int(11) NOT NULL,
+  `path` varchar(32) NOT NULL,
+  `label` varchar(128) NOT NULL,
+  `labelsearch` varchar(128) DEFAULT NULL,
+  `labeldisplay` varchar(128) DEFAULT NULL,
+  `labelariane` varchar(128) DEFAULT NULL,
+  `labelslug` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Index_3` (`label`,`type`,`level`),
+  KEY `slug` (`type`,`status`,`level`,`labelslug`),
+  KEY `Index_4` (`status`,`type`,`path`,`label`) USING BTREE,
+  KEY `extradata` (`type`,`status`,`extradata`(32)) USING BTREE,
+  KEY `type_path_level_priority` (`type`,`path`,`level`,`priority`)
+) ENGINE=InnoDB AUTO_INCREMENT=289747 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='InnoDB free: 9216 kB; InnoDB free: 1984512 kB'
+
+CREATE TABLE `session` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL,
+  `action_id` bigint(20) DEFAULT NULL,
+  `ad_id` bigint(20) DEFAULT NULL,
+  `idformintercarif` varchar(32) DEFAULT NULL,
+  `idactionintercarif` varchar(32) DEFAULT NULL,
+  `idsessionintercarif` varchar(32) DEFAULT NULL,
+  `beganat` datetime DEFAULT NULL,
+  `endedat` datetime DEFAULT NULL,
+  `locationpath` varchar(32) DEFAULT NULL,
+  `lat` double NOT NULL,
+  `lng` double NOT NULL,
+  `content` mediumtext CHARACTER SET utf8,
+  PRIMARY KEY (`id`),
+  KEY `diformintercarif` (`idformintercarif`),
+  KEY `ad_id` (`ad_id`,`status`,`endedat`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=34643609 DEFAULT CHARSET=latin1
+
+CREATE TABLE `sphad` (
+  `id` bigint(20) unsigned NOT NULL,
+  `weight` int(11) NOT NULL,
+  `query` varchar(3072) NOT NULL,
+  `orgaid` int(11) NOT NULL,
+  `formacodeprincipal` varchar(64) NOT NULL,
+  `racineformacodeprincipal` int(11) NOT NULL,
+  `adrankid` int(11) DEFAULT NULL,
+  `ad_id` int(11) NOT NULL,
+  `adrankregionid` int(11) DEFAULT NULL,
+  `location` varchar(64) NOT NULL,
+  `ratio` float NOT NULL,
+  `proximitydate` int(11) NOT NULL,
+  `rate` float NOT NULL,
+  `convention` int(11) NOT NULL,
+  `_sph_geodist` int(11) NOT NULL,
+  `_sph_groupby` int(11) DEFAULT '0',
+  `_sph_count` int(11) DEFAULT '0',
+  `_sph_distinct` int(11) DEFAULT '0',
+  KEY `query` (`query`(1024))
+) ENGINE=SPHINX DEFAULT CHARSET=utf8 CONNECTION='sphinx://127.0.0.1:3312/lbfad'
+
+CREATE TABLE `sphreference` (
+  `id` bigint(20) unsigned NOT NULL,
+  `weight` int(11) NOT NULL,
+  `query` varchar(3072) NOT NULL,
+  `locationid` int(10) unsigned NOT NULL,
+  KEY `query` (`query`(1024))
+) ENGINE=SPHINX DEFAULT CHARSET=utf8 CONNECTION='sphinx://127.0.0.1:3312/lbfreference'
+
+CREATE TABLE `sphreferenceformacode` (
+  `id` bigint(20) unsigned NOT NULL,
+  `weight` int(11) NOT NULL,
+  `query` varchar(3072) NOT NULL,
+  `reference_id` int(11) NOT NULL,
+  `ad_id` int(11) NOT NULL,
+  `_sph_geodist` int(11) NOT NULL,
+  `_sph_groupby` int(11) DEFAULT '0',
+  `_sph_count` int(11) DEFAULT '0',
+  KEY `query` (`query`(1024))
+) ENGINE=SPHINX DEFAULT CHARSET=utf8 CONNECTION='sphinx://127.0.0.1:3312/lbfreferenceformacode'
+
+CREATE TABLE `stats` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `createdat` datetime NOT NULL,
+  `updatedat` datetime DEFAULT NULL,
+  `deletedat` datetime DEFAULT NULL,
+  `status` enum('ACTIVE','INACTIVE','DELETED') NOT NULL DEFAULT 'ACTIVE',
+  `type` enum('anotea','annonces','organismes') NOT NULL,
+  `count1` int(11) DEFAULT NULL,
+  `count2` int(11) DEFAULT NULL,
+  `count3` int(11) DEFAULT NULL,
+  `count4` int(11) DEFAULT NULL,
+  `count5` int(11) DEFAULT NULL,
+  `count6` int(11) DEFAULT NULL,
+  `count7` int(11) DEFAULT NULL,
+  `count8` int(11) DEFAULT NULL,
+  `count9` int(11) DEFAULT NULL,
+  `count10` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=latin1
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_extradata`(tag VARCHAR(4),extradata TEXT,def TEXT) RETURNS text CHARSET latin1
+    NO SQL
+    DETERMINISTIC
+BEGIN
+  DECLARE mypos INT;
+  DECLARE taglength INT;
+  SET taglength=LENGTH(CONCAT('[',tag,':'));
+  SET mypos=LOCATE(CONCAT('[',tag,':'),extradata);
+  RETURN IF(mypos>0,SUBSTRING(extradata,mypos+taglength,LOCATE(']',extradata,mypos)-mypos-taglength),def);
+END
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_extradataall`(
+	`tag` VARCHAR(4),
+	`extradata` TEXT,
+	`def` TEXT,
+	`defsep` VARCHAR(255)
+) RETURNS text CHARSET latin1
+BEGIN
+  DECLARE mypos INT;
+  DECLARE taglength INT;
+  DECLARE valuelength INT;
+  DECLARE offset INT;
+  DECLARE ret TEXT;
+  DECLARE tofind VARCHAR(32);
+
+  SET ret='';
+  SET offset=1;
+  SET tofind=CONCAT('[',tag,':');
+  SET taglength=LENGTH(tofind);
+  SET mypos=LOCATE(tofind,extradata,offset);
+  SET defsep=IF(defsep is null,' ',defsep);
+
+  WHILE mypos > 0 DO
+    SET valuelength=LOCATE(']',extradata,mypos)-mypos-taglength;
+    SET ret=CONCAT(ret,defsep,SUBSTRING(extradata,mypos+taglength,valuelength));
+    SET offset=mypos+taglength+valuelength;
+    SET mypos=LOCATE(tofind,extradata,offset);
+  END WHILE;
+  return IF(offset>1,ret,def);
+END
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_levenshtein`( s1 VARCHAR(255), s2 VARCHAR(255) ) RETURNS int(11)
+    DETERMINISTIC
+BEGIN 
+    DECLARE s1_len, s2_len, i, j, c, c_temp, cost INT; 
+    DECLARE s1_char CHAR; 
+    
+    DECLARE cv0, cv1 VARBINARY(256); 
+    SET s1_len = CHAR_LENGTH(s1), s2_len = CHAR_LENGTH(s2), cv1 = 0x00, j = 1, i = 1, c = 0; 
+    IF s1 = s2 THEN 
+      RETURN 0; 
+    ELSEIF s1_len = 0 THEN 
+      RETURN s2_len; 
+    ELSEIF s2_len = 0 THEN 
+      RETURN s1_len; 
+    ELSE 
+      WHILE j <= s2_len DO 
+        SET cv1 = CONCAT(cv1, UNHEX(HEX(j))), j = j + 1; 
+      END WHILE; 
+      WHILE i <= s1_len DO 
+        SET s1_char = SUBSTRING(s1, i, 1), c = i, cv0 = UNHEX(HEX(i)), j = 1; 
+        WHILE j <= s2_len DO 
+          SET c = c + 1; 
+          IF s1_char = SUBSTRING(s2, j, 1) THEN  
+            SET cost = 0; ELSE SET cost = 1; 
+          END IF; 
+          SET c_temp = CONV(HEX(SUBSTRING(cv1, j, 1)), 16, 10) + cost; 
+          IF c > c_temp THEN SET c = c_temp; END IF; 
+            SET c_temp = CONV(HEX(SUBSTRING(cv1, j+1, 1)), 16, 10) + 1; 
+            IF c > c_temp THEN  
+              SET c = c_temp;  
+            END IF; 
+            SET cv0 = CONCAT(cv0, UNHEX(HEX(c))), j = j + 1; 
+        END WHILE; 
+        SET cv1 = cv0, i = i + 1; 
+      END WHILE; 
+    END IF; 
+    RETURN c; 
+END
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_lowernoacc`(`str` TEXT) RETURNS text CHARSET utf8
+    NO SQL
+    DETERMINISTIC
+BEGIN
+  RETURN REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(str),'à','a'),'â','a'),'ç','c'),'é','e'),'è','e'),'ê','e'),'ë','e'),'ï','i'),'î','i'),'ô','o'),'ö','o'),'ù','u'),'û','u'),'ü','u'),'ÿ','y'),'œ','oe'),'æ','ae');
+END
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_pathlevel`(p CHAR(32)) RETURNS int(11)
+    NO SQL
+    DETERMINISTIC
+BEGIN
+  DECLARE cnt INT;
+  SET cnt=LENGTH(p)-LENGTH(REPLACE(p,'/',''))-1;
+  RETURN IF(cnt>=0,cnt,0);
+END
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_subpath`(p CHAR(32), l INT) RETURNS varchar(32) CHARSET latin1
+    NO SQL
+    DETERMINISTIC
+BEGIN
+  RETURN IF(SUBSTRING_INDEX(p,'/',l+1)=p,p,CONCAT(SUBSTRING_INDEX(p,'/',l+1),'/'));
+END
+

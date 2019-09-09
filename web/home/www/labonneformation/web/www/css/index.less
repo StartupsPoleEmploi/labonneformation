@@ -1,0 +1,227 @@
+@import "constantes";
+
+
+.la-bonne-formation {
+	h1 {
+		font-size: 36px;
+	}
+	h2 {
+		color: @font-color-1;
+	}
+
+	.block-recherche {
+		.reduire {
+			display: none;
+		}
+	}
+
+	.section-header {
+		position: relative;
+
+		.logo {
+			display: block;
+			float: none;
+		}
+		img {
+			&.logo {
+				float: none;
+				display: block;
+				max-width: 10em;
+			}
+		}
+	}
+
+	.section-body {
+		background-color: white;
+		min-height: 55%;
+
+		.titre-page {
+			margin-top: 0.5em;
+			margin-bottom: 0em;
+			font-size: 36px;
+			display: block;
+			line-height: 44px;
+			font-weight: 600;
+			text-align: center;
+			color: @font-color-1;
+
+			//@media (max-width: 767px) {
+			//	font-size: 24px;
+			//	line-height: 30px;
+			//	margin-top: 1em;
+			//	margin-bottom: 0;
+			//}
+		}
+	}
+
+	.section-powered-by {
+		background-color: @back-block;
+		//margin-bottom: 6em;
+		padding-bottom: 1em;
+	}
+
+	.block-home {
+		margin-top: 1em;
+
+		.informations, .avis, .visibilites {
+			margin-bottom: 0.5em;
+			padding-left: 60px;
+			padding-right: 1em;
+			background-position: 0 5px;
+			background-repeat: no-repeat;
+			color: @font-color-1;
+
+			.block-info {
+				font-size: 1.1em;
+			}
+		}
+		.informations {
+			background-image: url(/img/pictos/picto-portefeuille.png);
+		}
+		.avis {
+			background-image: url(/img/pictos/picto-smiley.png);
+		}
+		.visibilites {
+			background-image: url(/img/pictos/picto-contrat.png);
+		}
+		@media (max-width: 767px) {
+			margin-left: .5em;
+			margin-right: .5em;
+		}
+	}
+
+	.block-explicatif {
+		margin-top: 1em;
+
+		h2 {
+			margin-top: 0;
+			font-size: 1.5em;
+		}
+		.picto {
+			text-align: center;
+			margin-bottom: -25px;
+			position: relative;
+			z-index: 1;
+
+			img {
+				width: 50px;
+			}
+		}
+		.background {
+			img {
+				width: 100%;
+			}
+		}
+		.block {
+			margin-bottom: 1em;
+			min-height: 300px;
+
+			.block-info {
+				color: @font-color-link;
+				font-size: 18px;
+				font-weight: 600;
+				line-height: 20px;
+			}
+		}
+	}
+
+	.powered-by {
+		margin-top: 2em;
+		margin-bottom: 2em;
+
+		.logo-pe {
+			background: url(/img/logo-poleemploi-mini.png) no-repeat;
+			padding-left: 98px;
+			min-height: 60px;
+			line-height: 60px;
+		}
+		.logo-intercarif {
+			background: url(/img/logo-intercarif.png) no-repeat;
+			padding-left: 98px;
+			min-height: 63px;
+			line-height: 63px;
+		}
+		p {
+			display: inline-block;
+			line-height: 1.5em;
+			vertical-align: middle;
+		}
+	}
+}
+
+.section-engine {
+	margin-bottom: 0em;
+	@media (max-width: 767px) {
+		margin-top: 2em;
+		margin-bottom: 1em;
+	}
+}
+
+.section-engine div form {
+	margin-bottom: 0.5em;
+}
+
+.section-content {
+	background-color: white;
+}
+
+#immersion-intro {
+	padding-bottom:20px;
+
+	.immersion-title {
+		margin-top:0;
+		font-size:1.5em;
+		text-transform: uppercase;
+		color: #4A90E2;
+		font-weight: 500;
+	}
+
+
+	.immersion-subtitle {
+		margin-top:10px;
+		margin-bottom:30px;
+	}
+
+	.immersion-description {
+		font-size:24px;
+		margin-bottom:40px;
+	}
+
+	#immersion-bouton {
+		margin-bottom:20px;
+	}
+}
+
+.block.immersion {
+	border-top: none;
+	border-radius: 2px;
+	background-color:#F4F4F5;
+	padding: 1em;
+	margin-bottom: 10px;
+	color: white;
+	min-height: 290px;
+}
+
+.block.immersion h4 {
+	color:#4A90E2;
+	margin-top:0;
+}
+
+.block-info.immersion {
+	color:#4A4A4A;
+	margin-top:15px;
+}
+
+#immersion-bouton-tester {
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.la-bonne-formation .block-recherche .trouver {
+	margin-top: 0.5em;
+	margin-bottom: 0em;
+}
+
+.la-bonne-formation .block-recherche .mots-cles, .la-bonne-formation .block-recherche .lieu {
+	margin-bottom: 0.5em;
+}

@@ -1,0 +1,221 @@
+#widget-immersion {
+	font-family: 				'Lato';	
+		
+	#recherche-container-widget {	
+		margin-top:				5%;
+		margin-left:			5%;
+		margin-right:			5%;
+
+		.grand-titre-widget {
+			color:				#25A4C7;
+			font-weight:		400;
+			font-size:			130%;
+			text-align: 		center;
+		}
+	}
+
+	#resultat-container-widget {
+		margin:					2%;
+		margin-right:			0px;
+		height:					100vh;
+
+		.separateur-horizontal {
+			border:				none;
+			border-top:			1px solid hsla(0, 0%, 50%, 1);
+			height:				1px;
+			width:				90%;
+		}
+
+		.separateur-vertical { 
+			position:			relative;
+			top:				-70px;
+			border:         	none;
+			height:         	120vh;
+			width:          	30px;
+			margin-left:		0px;
+			-webkit-box-shadow: inset 37px 0px 65px -77px rgba(0,0,0,0.75);
+			-moz-box-shadow: 	inset 37px 0px 65px -77px rgba(0,0,0,0.75);
+			box-shadow: 		inset 37px 0px 65px -77px rgba(0,0,0,0.75);
+		}
+
+		.picto-docs-widget {
+			height:				20px;
+			width:				20px;
+			opacity:			0.5;
+			background-image: #25A4C7;
+		}
+
+		#col-droite-widget {
+			height: 			100%;
+			overflow-y: 		scroll;
+
+			.col-xs-1 {
+				padding-right:0;
+			}
+
+			.enseigne-entreprise-widget {
+				font-weight: 	bold;
+			}
+
+			#indent-enseigne {
+				position:			absolute;
+				left:				0;
+			}
+
+			.indent-enseigne-secteur {
+				margin-left: 10%;
+			}
+
+			.secteur-entreprise-widget {
+				opacity: 		0.6;
+			}
+
+			.picto-widget {
+				height:			16px;
+				width:			16px;
+				opacity:		0.5;
+			}
+
+			.separateur-horizontal {
+				border:			none;
+				border-top:		1px solid hsla(0, 0%, 75%, 1);
+				height:			1px;
+				width:			70%;			
+			}
+		}
+
+		#col-gauche-widget {
+
+			.liens-documents-widget {
+				text-align:		left;
+
+				@media screen and (min-width: 601px) {
+					& {
+						font-size:100%;
+					}
+				}
+				  
+				@media screen and (max-width: 600px) {
+					& {
+						font-size:70%;
+					}
+				}
+			}
+
+			.titre-widget {
+				font-weight:	bold;
+				margin-bottom:	5%;
+
+				@media screen and (min-width: 601px) {
+					& {
+						  font-size: 	100%;
+					}
+				}
+				  
+				@media screen and (max-width: 600px) {
+					& {
+						font-size: 		80%;
+					}
+				}
+
+			}
+	
+	
+			.formulaire-recherche-immersion {
+				margin-bottom:	5%;
+				margin-top:		5%;
+			}
+		}
+	}
+
+	.titre-widget {
+		font-weight: 			bold;
+		font-size: 				16px;
+		margin-bottom:			5%;
+	}
+
+	.rechercher-widget {
+		background-image:		linear-gradient(to left,#25A4C7,#88D6C4);
+		color:					white;
+		font-weight:			bold;
+		margin: 				auto;
+		margin-right: 			none;	
+		display:				block;
+		min-width:				70%;
+		height: 				2.8em;
+		border-radius: 			7px;
+		border: 				none;
+		margin:					auto;
+
+		@media screen and (min-width: 601px) {
+			& {
+			  	font-size: 110%;
+			}
+		}
+		  
+		@media screen and (max-width: 600px) {
+			& {
+				padding:none;
+				font-size: 70%;
+			}
+		}
+	}
+
+	.champ-recherche-widget {
+		height:					5em;
+		box-shadow: 			0px 0px 0px 0px;
+		border:					none;
+		background-color:		hsla(0, 0%, 93%, 1);
+		border-radius:			4px;
+		min-width:				70%;
+		font-size:				80%;
+
+		@media screen and (min-width: 601px) {
+			& {			  	
+				max-width:		100%;
+			}
+		}
+		  
+		@media screen and (max-width: 600px) {
+			& {
+				max-width:		700px;
+			}
+		}
+		
+		&::placeholder {
+			color: 				hsla(0, 0%, 50%, 1);
+			opacity: 			1;
+		  }
+
+		&:focus {
+			border:				solid 0.5px;
+			border-color:		hsla(0, 0%, 45%, 1);
+			&::placeholder {
+				color: 			hsla(0, 0%, 50%, 1);
+				opacity: 		1;
+			  }
+		}
+	}
+	/* Autocompletion */
+	.locationcompletion, .codecompletion {
+		background-color: 		white;
+		border: 				1px solid #aaa;
+		border-radius: 			0 0 10px 10px;
+		padding: 				.3em 0;
+		z-index: 				10;
+		min-width: 				400px;
+		text-align: 			left;
+		color: 					black;
+
+		@media (max-width: 767px) {
+			width: 				95%;
+			min-width: 			0;
+		}
+		.over {
+			background-color: 	hsla(0, 0%, 93%, 1);
+		}
+		li {
+			padding: 			.3em .8em;
+		}
+	}
+}

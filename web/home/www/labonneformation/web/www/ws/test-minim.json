@@ -1,0 +1,17 @@
+{
+	"formationVisee":
+	{
+		"codeFormation":"02_201601007559"
+	},
+	"individu":
+	{
+		"type": "DE",
+		"typeAllocation":
+		{
+			"type":"are"
+		},
+		"departementHabitation": "93",
+		"dateNaissance": "2003-12-12",
+		"niveauEtude": "3"
+	}
+}

@@ -1,0 +1,49 @@
+{
+	"formationVisee":
+	{
+		"codeFormation":"02_201601007559"
+	},
+	"individu":
+	{
+		"type": "DE",
+		"chomageDePlusDeSixMois": "true",
+		"typeAllocation":
+		{
+			"type":"are",
+			"montantMensuelAllocation": "200",
+			"dateFinIndemnisation": "2018-11-10"
+		},
+		"departementHabitation": "93",
+		"dateNaissance": "2003-12-12",
+		"niveauEtude": "3",
+		"heuresCPF": "100",
+		"contratApprentissage": "true",
+		"apprentissageSituation":
+		{
+			"crontratType": "4",
+			"ruptureContratApprentissage": "true"
+		},
+		"cddTermine":
+		{
+			"depuisMoinsUnAn": "true",
+			"12MoisSur5Ans": "true",
+			"cddDateDeFin": "2017-12-12",
+			"salaireMoyen4DeriniersMois": "800"
+		},
+		"interimExperience":
+		{
+			"1600HeuresDepuis6mois": "true",
+			"600HeuresDepuis6mois": "true",
+			"derniereMissionDateFin": "2016-12-12",
+			"salaireBrutMensuel4DerniersMois": "1200"
+		},
+		"contratAide": "true",
+		"travailleurHandicape": "true",
+		"travNonSalTrav12Et6Cons3AnsStage": "true",
+		"parentIsole": "true",
+		"mere3enfants": "true",
+		"femmeSeule": "true",
+		"projetCreationEntreprise": "true",
+		"formationEntammeeEnVAE": "true"
+	}
+}

@@ -1,0 +1,514 @@
+swagger: "2.0"
+info:
+  description: "Obtenir la liste des financements possibles (couts et rémunération) en fonction du profil de l'utilisateur et des caractéristiques de la formation."
+  version: "0.7.1"
+  title: "Api moteur de financement formation professionnelle"
+  contact:
+    email: "regis.greau@pole-emploi.fr"
+host: "labonneformation.pole-emploi.fr"
+basePath: "/api/v1"
+tags:
+- name: "financement"
+  description: "Obtenir la liste des financements possibles (couts et rémunération) en fonction du profil de l'utilisateur et des caractéristiques de la formation."
+schemes:
+- "https"
+paths:
+  /financement:
+    post:
+      tags:
+      - "financement"
+      summary: "Obtenir la liste des financements possibles"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/financements"
+          examples:
+            application/json:
+              financements: [
+                {
+                  libelle: "Compte Personnel de Formation (CPF)",
+                  donneesConsolidees: {
+                    "description": "Contactez un conseiller emploi pour être accompagné dans la mobilisation de votre compte CPF .
+                    Activez votre compte CPF et inscrivez vos éventuelles heures de DIF, non utilisées au titre de votre dernière rupture de contrat de travail,",
+                    "infoComplementaire": "Le compte personnel de formation (CPF) permet à toute personne active, dès son entrée sur le marché du travail et jusqu’à sa retraite, d’acquérir des droits à la formation mobilisables tout au long de sa vie professionnelle.
+                    Lorsqu’un demandeur d’emploi bénéficie d’heures sur son compte, il peut les mobiliser pour financer toute ou partie d'une formation qualifiante.",
+                    "cout": "Formation totalement ou partiellement financée sur la base de 450 €",
+                    "remuneration": "Vous percevrez 900 € net / mois jusqu'au 30/04/2018 puis 401.09 € brut / mois jusqu'au 31/05/2018",
+                  },
+                  donneesStructurees: {
+                    familleDispositif: "cpf",
+                    typeDispositif: "cpf",
+                    priorite: 8,
+                    codesFinanceur: [0,1,5,8],
+                    cout: {
+                      plafond: 450,
+                      resteACharge: false,
+                      financeePE: false,
+                      cumulable: true
+                    },
+                    remunerations: [
+                      0: {
+                        montant: 900,
+                        type: "aref",
+                        dateFin: "2018-05-31",
+                        nature: "net"
+                      },
+                      1: {
+                        montant: 401.09,
+                        type: "rff",
+                        dateFin: "2018-05-31",
+                        nature: "brut"
+                      }
+                    ]
+                  }
+                },
+                {
+                  libelle: "Aide Individuelle à la Formation (AIF)",
+                  libelleAlternatif: "L'Aide Individuelle à la Formation (AIF)",
+                  donneesConsolidees: {
+                    "description": "Contactez votre conseiller référent emploi (Pôle emploi, Mission Locale ou Cap emploi).
+                    Vous lui présenterez si possible plusieurs devis d'organismes différents ainsi qu'une lettre de motivation.
+                    Votre projet de formation et son financement doivent être présentés au plus tard un mois avant le début de la formation.",
+                    "infoComplementaire": "L'aide individuelle à la formation professionnelle (AIF) est une aide de Pôle emploi qui vise à financer certains besoins individuels de formation auxquels les achats d'action de formation collectives ne peuvent répondre.
+                    L'AIF est réservée à des projets de formation dont la pertinence est validée par votre conseiller référent Pôle emploi.
+                    Cette pertinence est appréciée au regard de votre projet professionnel et du marché du travail.
+                    Les formations financées doivent permettre de faciliter votre retour à l'emploi.",
+                    "cout": "Formation totalement financée par Pôle emploi (hors frais d'inscription et frais éventuels de passage d'examen)",
+                    "remuneration": "Vous percevrez jusqu'au 30/04/2018 900 € net / mois",
+                  },
+                  donneesStructurees: {
+                    familleDispositif: "individuel",
+                    typeDispositif: "aif",
+                    priorite: 7,
+                    codesFinanceur: [],
+                    cout: {
+                      resteACharge: false,
+                      financeePE: true,
+                      financableCpf: true,
+                      cumulable: true
+                    },
+                    remunerations: [
+                      0: {
+                        montant: 900,
+                        type: "aref",
+                        dateFin: "30-04-2018",
+                        nature: "net"
+                      }
+                    ]
+                  }
+                }
+              ]
+        204:
+          description: "No Content"
+        400:
+          description: "Erreurs de contenu"
+          schema:
+            $ref: "#/definitions/erreurs400"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Ressource non trouvée"
+          schema:
+            $ref: "#/definitions/erreurs404"
+        500:
+          description: "Internal Server Error"
+      parameters:
+      - in: "body"
+        name: "criteres"
+        description: "croisement entre la formation visée et l'individu"
+        required: true
+        schema:
+          $ref: "#/definitions/criteres"
+definitions:
+  criteres:
+    type: object
+    required:
+      - "formationVisee"
+      - "individu"
+    properties:
+      formationVisee:
+        $ref: "#/definitions/formationVisee"
+      individu:
+        $ref: "#/definitions/individu"
+  formationVisee:
+    type: object
+    required:
+      - "codeFormation"
+    properties:
+      codeFormation:
+        type: string
+        description: "identifiant unique de la formation issu du catalogue (id intercarif par exemple)"
+      codeAction:
+        type: string
+        description: "identifiant de l’action (intercarif. Si absent, l’action la plus proche à venir sera prise en compte)"
+        default: ""
+      codeSession:
+        type: string
+        description: "identifiant de la session (intercarif: Si absent, la session la plus proche dans le temps est considérée)"
+        default: ""
+  individu:
+    type: object
+    required:
+      - "type"
+      - "dateNaissance"
+      - "departementHabitation"
+      - "niveauEtude"
+    properties:
+      type:
+        type: string
+        description: "demandeur d'emploi ou salarié (note: salarié en cours d'implémentation)"
+        enum:
+          - "de"
+          - "salarie"
+      dateNaissance:
+        type: string
+        description: "date de naissance: YYYY-MM-DD"
+        format: date
+      departementHabitation:
+        type: string
+        description: "code INSEE issu du site https://www.insee.fr/fr/information/2666684#titre-bloc-23"
+      cumulDureeInscriptionSur12Mois:
+        type: integer
+        description: "nombre de mois cumulés d'inscription sur les 12 derniers mois"
+      chomageDePlusDeSixMois:
+        type: boolean
+        description: "inscrit(e) comme demandeur d'emploi depuis au moins 6 mois au cours des 12 derniers mois"
+      typeAllocation:
+        $ref: "#/definitions/typeAllocation"
+      niveauEtude:
+        type: string
+        description: "niveaux d'étude"
+        enum:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          - "6"
+          - "7"
+          - "8"
+        example:
+          1: "Sans niveau spécifique"
+          2: "Sans diplôme (VI)"
+          3: "Préqualification (V bis)"
+          4: "CAP, BEP, CFPA du premier degré (V)"
+          5: "BP, BT, baccalauréat professionnel ou technologique (IV)"
+          6: "BTS, DUT (III)"
+          7: "Licence ou maîtrise universitaire (II)"
+          8: "Supérieur à la maîtrise (I)"
+      heuresCPF:
+        type: integer
+        description: "crédit d'heures du compte personnel de formation"
+        minimum: 0
+        maximum: 150
+        default: 0
+      montantCPF:
+        type: integer
+        description: "montant en euro du compte personnel de formation"
+        minimum: 0
+        default: 0
+      apprentissageSituation:
+        $ref: "#/definitions/apprentissageSituation"
+      cddTermine:
+        $ref: "#/definitions/cddTermine"
+      interimExperience:
+        $ref: "#/definitions/interimExperience"
+      contratAide:
+        $ref: "#/definitions/contratAide"
+      travailleurHandicape:
+        type: boolean
+        description: "reconnu travailleur handicapé"
+        default: false
+      travNonSalariePrisEnCharge:
+        type: boolean
+        description: "travailleur non salarié ayant travaillé durant 12
+        mois, dont 6 mois consécutifs, dans les 3 ans précédant l’entrée en
+        stage"
+        default: false
+      parentIsole:
+        type: boolean
+        description: "parent isolé"
+        default: false
+      femmeSeule:
+        type: boolean
+        description: "femme divorcée, veuve, ou séparée judiciairement depuis
+        moins de 3 ans"
+        default: false
+      mere3enfants:
+        type: boolean
+        description: "mère de famille ayant eu au moins 3 enfants"
+        default: false
+      projetCreationEntreprise:
+        type: boolean
+        description: "projet de création d'entreprise qui nécessite cette
+        formation"
+        default: false
+      formationEntammeeEnVAE:
+        type: boolean
+        description: "certification partielle par un jury VAE obtenue il y a moins de 5 ans "
+        default: false
+  typeAllocation:
+    required:
+      - "type"
+    properties:
+      dateFinIndemnisation:
+        type: string
+        format: date
+        description: "date de fin d'indemnisation: YYYY-MM-DD"
+        default: ""
+      montantMensuelAllocation:
+        type: number
+        format: float
+        description: "montant mensuel de l'allocation en euros"
+        default: ""
+      type:
+        type: string
+        description: "type de l'allocation"
+        enum:
+          - "non"
+          - "are"
+          - "ass"
+          - "rsa"
+          - "ata"
+          - "asr"
+          - "atp"
+          - "asp"
+          - "aex"
+        example:
+          non: Non indemnisé
+          are: Allocation d"aide au Retour à l'Emploi (ARE)
+          ass: Allocation de Solidarité Spécifique (ASS)
+          rsa: Revenu de Solidarité Active (RSA)
+          ata: Allocation Temporaire d"Attente (ATA)
+          asr: Allocation Spécifique de Reclassement (ASR)
+          atp: Allocation de Transition Professionnelle (ATP)
+          asp: Allocation de Sécurisation Professionnelle (ASP)
+          aex: Allocation ex-employeur secteur public
+  cddTermine:
+    properties:
+      depuisMoinsUnAn:
+        type: boolean
+        description: "contrat CDD terminé depuis moins d'un an à la date du jour"
+        default: false
+      12MoisSur5ans:
+        type: boolean
+        description: "totalise au moins 12 mois de travail depuis 5 ans à la date du jour"
+        default: false
+      24MoisSur5Ans:
+        type: boolean
+        description: "totalise au moins 24 mois de travail depuis 5 ans à la date du jour"
+        default: false
+      4MoisSur1An:
+        type: boolean
+        description: "dont au moins 4 mois de travail de CDD depuis un an à la date du jour"
+        default: false
+      cddDateDeFin:
+        type: string
+        format: date
+        description: "date de fin du dernier CDD: YYYY-MM-DD"
+        default: ""
+      salaireMoyen4DerniersMois:
+        type: integer
+        description: "salaire moyen au cours des 4 derniers mois du dernier CDD"
+        default: ""
+  interimExperience:
+    properties:
+      1600HeuresDepuis6mois:
+        type: boolean
+        description: "travail  d'au moins 1600 heures comme intérimaire depuis 6 mois"
+        default: false
+      600HeuresAvecMemeEntreprise:
+        type: boolean
+        description: "dont au moins 600 heures dans la même entreprise de travail temporaire"
+        default: false
+      derniereMissionDateFin:
+        type: string
+        format: date
+        description: "date de fin de la dernière mission ou mission en cours"
+        default: ""
+      salaireBrutMensuel4DerniersMois:
+        type: integer
+        description: "salaire moyen brut mensuel perçu au cours des 4 derniers mois en interim"
+        default: ""
+  apprentissageSituation:
+    properties:
+      contratType:
+        type: string
+        enum:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          - "6"
+          - "7"
+          - "8"
+        default: ""
+        example:
+          1: "Sans niveau spécifique"
+          2: "Sans diplôme (VI)"
+          3: "Préqualification (V bis)"
+          4: "CAP, BEP, CFPA du premier degré (V)"
+          5: "BP, BT, baccalauréat professionnel ou technologique (IV)"
+          6: "BTS, DUT (III)"
+          7: "Licence ou maîtrise universitaire (II)"
+          8: "Supérieur à la maîtrise (I)"
+      ruptureContratApprentissage:
+        type: boolean
+        description: "contrat d'apprentissage réalisé il y a moins d'un an à la date du jour"
+        default: false
+  contratAide:
+    properties:
+      enCours:
+        type: boolean
+        description: "Contrat aidé en cours"
+        default: false
+      termine:
+        type: boolean
+        description: "Contrat aidé terminé"
+        default: false
+  financements:
+      type: array
+      items:
+        type: object
+        properties:
+          libelle:
+            type: string
+            description: "Titre du dispositif"
+          donneesConsolidees:
+            type: object
+            description: "Données des libellés"
+            properties:
+              description:
+                type: string
+                description: "description du dispositif de financement"
+              infoComplementaire:
+                type: string
+                description: "description complémentaire"
+              cout:
+                type: string
+                description: "description du coup"
+              remuneration:
+                type: string
+                description: "description de la rémunération"
+          donneesStructurees:
+            type: object
+            description: "données structurées"
+            properties:
+              familleDispositif:
+                type: string
+                description: "Famille du dispositif"
+              typeDispositif:
+                type: string
+                description: "Type de dispositif"
+              priorite:
+                type: integer
+                description: "priorité du dispositif"
+              codesFinanceur:
+                type: array
+                description: "tableau des codes financeurs"
+                items:
+                  type: number
+                  format: integer
+                  description: "code financeur"
+              cout:
+                type: object
+                description: "les champs pour le calcul du coup"
+                properties:
+                  montant:
+                    type: number
+                    format: float
+                    description: "Le montant en euro du financement de la formation"
+                  plafond:
+                    type: number
+                    format: float
+                    description: "Le plafond maximum en euro pour le financement de la formation"
+                  resteACharge:
+                    type: boolean
+                    description: "Est-ce que la formation a un reste à charge ?"
+                  financableCpf:
+                    type: boolean
+                    description: "Est-ce que le compte personnel de formation est mobilisable ?"
+                  financeePE:
+                    type: boolean
+                    description: "Est-ce que la formation est financée par Pôle Emploi ?"
+                  cumulable:
+                    type: boolean
+                    description: "Est-ce que le dispositif est cumulable avec un autre dispositif ?"
+              remunerations:
+                type: array
+                items:
+                  type: object
+                  description: "Les champs pour spécifier la rénumaration du demandeur d'emploi"
+                  properties:
+                    montant:
+                      type: number
+                      format: float
+                      description: "Montant de la rénumération en euro"
+                    type:
+                      type: string
+                      description: "Le type de la rénumaration"
+                    dateFin:
+                      type: string
+                      format: date
+                      description: "Date de fon de la rénumaration"
+                    nature:
+                      type: string
+                      description : "Nature de la rénumération"
+  erreurs400:
+    type: array
+    items:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: "code erreur applicatif"
+        message:
+          type: string
+          description: "message de l'erreur"
+    example:
+      [
+        {
+          "code": "100",
+          "message": "valeur inattendue pour le champ contratType"
+        },
+        {
+          "code": "110",
+          "message": "date mal formée pour le champ dateFinIndemnisation"
+        },
+        {
+          "code": "120",
+          "message": "erreur : valeur non booleene"
+        },
+        {
+          "code": "130",
+          "message": "erreur : valeur non numérique"
+        },
+        {
+          "code":"200",
+          "message": "requis : champ dateNaissance"
+        }
+      ]
+  erreurs404:
+    type: array
+    items:
+      type: object
+      properties:
+        code:
+          description: "code de la ressource non trouvé"
+          type: integer
+        message:
+          description: "description de la ressource non trouvé"
+          type: string
+    example:
+      [
+        {
+          "code": "800",
+          "message": "non trouvé : formation inexistante"
+        }
+      ]

@@ -1,0 +1,76 @@
+@import "constantes";
+
+.la-bonne-formation {
+	.ct-label {
+		font-size: .8em;
+		color: #555;
+	}
+	.ct-series-a .ct-bar {
+		stroke-width: 2em;
+	}
+	.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+		stroke: #94C7F3;
+	}
+	.ct-legend {
+		position: relative;
+		z-index: 10;
+		list-style: none;
+		text-align: center;
+	}
+	.ct-legend li {
+		position: relative;
+		padding-left: 23px;
+		margin-right: 10px;
+		margin-bottom: 3px;
+		cursor: pointer;
+		display: inline-block;
+	}
+	.ct-legend li:before {
+		width: 12px;
+		height: 12px;
+		position: absolute;
+		left: 0;
+		content: '';
+		border: 3px solid transparent;
+		border-radius: 2px;
+	}
+	.ct-legend li.inactive:before {
+		background: transparent;
+	}
+	.ct-legend.ct-legend-inside {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.ct-legend.ct-legend-inside li{
+		display: block;
+		margin: 0;
+	}
+	.ct-legend .ct-series-0:before {
+		background-color: #94C7F3;
+		border-color: #94C7F3;
+	}
+	.ct-legend .ct-series-1:before {
+		background-color: #f05b4f;
+		border-color: #f05b4f;
+	}
+	.ct-legend .ct-series-2:before {
+		background-color: #f4c63d;
+		border-color: #f4c63d;
+	}
+	.ct-legend .ct-series-3:before {
+		background-color: #d17905;
+		border-color: #d17905;
+	}
+	.stats-satisfaction {
+		font-size: 5em;
+		text-align: center;
+		height: 4.3em;
+		line-height: 4.3em;
+		vertical-align: middle;
+		padding-left: 23px;
+		margin-right: 10px;
+		margin-bottom: 3px;
+		font-weight:bold;
+	}
+}

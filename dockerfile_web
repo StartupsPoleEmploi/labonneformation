@@ -1,0 +1,15 @@
+FROM ubuntu:bionic
+
+ARG PHP_VER=7.2
+
+RUN apt-get update && \
+    apt-get -y install php${PHP_VER}-gd php${PHP_VER}-cli php${PHP_VER}-mysql php${PHP_VER}-mysqli \
+                       php${PHP_VER}-mbstring php${PHP_VER}-bz2 php${PHP_VER}-xml php${PHP_VER}-tidy php${PHP_VER}-curl && \
+    apt-get -y install mariadb-client
+
+RUN mkdir -p /home/www;
+
+COPY ./web/home/www /home/www
+
+CMD cd /home/www/labonneformation; \
+    php -S 0.0.0.0:80 batch/quarky.php

@@ -1,0 +1,42 @@
+FROM ubuntu:trusty
+
+VOLUME labonneformation
+
+RUN mkdir -p /var/lib/database/mysql /var/lib/database/sphinx; \
+    ln -sfn /var/lib/database/sphinx /home/sphinx; \
+    ln -sfn /var/lib/database/mysql /var/lib/mysql;
+
+RUN export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update && \
+    apt-get -y install mariadb-server && \
+    apt-get -y install sphinxsearch && \
+    apt-get -y install wget bzip2
+
+RUN wget http://sphinxsearch.com/files/sphinxsearch_2.2.10-release-0ubuntu12~trusty_amd64.deb && \
+    dpkg -i --force-all sphinxsearch_2.2.10-release-0ubuntu12~trusty_amd64.deb && \
+    apt-get -y -f install
+
+RUN sed -i 's/=no/=yes/' /etc/default/sphinxsearch; \
+    mkdir -p /home/sphinx/log /home/sphinx/indexes/lbf; \
+    chown -R sphinxsearch: /home/sphinx /home/sphinx/*; \
+    echo "[mysqld]\nbind-address = 0.0.0.0" >/etc/mysql/conf.d/55-server.cnf;
+
+ARG SCHEMA=labonneformation
+
+RUN echo "service mysql start" >>/tmp/init.sh; \
+    echo "if [ ! -d /var/lib/mysql/${SCHEMA} ]; then" >>/tmp/init.sh; \
+    echo "mysql -e \"CREATE USER 'root'@'%' IDENTIFIED BY ''\";" >>/tmp/init.sh; \
+    echo "mysql -e \"GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'\";" >>/tmp/init.sh; \
+    echo "mysql -e \"FLUSH PRIVILEGES\";" >>/tmp/init.sh;  \
+    echo "mysql -e \"INSTALL SONAME 'ha_sphinx';\";" >>/tmp/init.sh; \
+    echo "mysql -e \"CREATE DATABASE ${SCHEMA}\";" >>/tmp/init.sh; \
+    echo "bzip2 -dcq /home/lbf_database.sql.bz2 | mysql -uroot ${SCHEMA}" >>/tmp/init.sh; \
+    echo "indexer --all --rotate" >>/tmp/init.sh; \
+    echo "fi" >>/tmp/init.sh; \
+    echo "service sphinxsearch start >>/var/log/sphinx.log" >>/tmp/init.sh;
+
+COPY ./web/home/www/labonneformation/config/sphinx.conf /etc/sphinxsearch/
+COPY ./database/home/database/lbf_database.sql.bz2 /home/
+
+CMD bash /tmp/init.sh; \
+    sleep infinity;

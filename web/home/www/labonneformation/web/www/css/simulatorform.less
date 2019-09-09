@@ -1,0 +1,238 @@
+@import "constantes";
+
+.la-bonne-formation {
+	h1 {
+		color: @font-color-1;
+		font-size: 1.4em;
+		font-weight: bold;
+		margin-bottom: 0;
+	}
+
+	h2 {
+		color: @font-color-1;
+		font-size: 1.3em;
+		font-weight: bold;
+		padding: 2em 0;
+		.highlight {
+			color: #337ab7;
+		}
+		@media (max-width: 767px) {
+			padding: 0;
+			margin-top: 0;
+		}
+	}
+
+	.financement {
+		input, select {
+			margin-top: .5em;
+			margin-bottom: .5em;
+			width: 100%;
+			max-width: 20em;
+		}
+		input[type=radio], input[type=checkbox] {
+			width: 1.2em;
+			height: 1.2em;
+			margin: .5em 0;
+		}
+		select {
+			height: 2.8em;
+			-webkit-appearance: menulist-button;
+			-moz-appearance: menulist;
+			appearance: menulist-button;
+		}
+	}
+
+	.button {
+		&.precedent {
+			margin-right: 1em;
+			padding: .9em;
+		}
+	}
+
+	.fa-exclamation-circle {
+		color: rgba(34,114,186);
+		font-size: 5em;
+	}
+
+	img {
+		width: inherit;
+	}
+
+	.prog {
+		width: 100%;
+		border: none;
+		td {
+			text-align: center;
+			border: 2px solid white;
+			&.bulle {
+				width: 4em;
+			}
+		}
+		.prog-bar {
+			height: 2.2em;
+			background-color:#3F6FAD; 
+			overflow: hidden;
+		}
+		.item {
+			width: 100%;
+			height: 2.2em;
+			background-color: @back-block-2;
+		}
+		#prog-0 {
+			border-radius: 5px 0 0 5px;
+		}
+		#prog-5 {
+			border-radius: 0 5px 5px 0;
+		}
+		.prog-bulle {
+			display: inline-block;
+			margin-left: -1em;
+			border-radius: 50%;
+			padding: .5em 1em;
+			background-color: rgba(63,111,173,1);
+			color: white;
+			.step {
+				font-size: 2.5em;
+				font-weight: bold;
+			}
+			.total-step {
+				font-size: 1.8em;
+			}
+		}
+		@media (max-width: 767px) {
+			.prog-bar, .item {
+				height: 1em;
+			}
+			.prog-bulle {
+				padding: .5em .7em;
+				.step {
+					font-size: 1.5em;
+				}
+				.total-step {
+					font-size: .9em;
+				}
+			}
+		}
+	}
+
+	#form-simulator {
+		margin-bottom: 1em;
+		input {
+			border: 1px solid;
+			&[type=submit] {
+				margin-top: 1em;
+				margin-bottom: 1em;
+				width: auto;
+				max-width: initial;
+				border: none;
+			}
+		}
+		label {
+			font-weight: normal;
+			display: inline;
+			line-height: 2em;
+		}
+		.label {
+			font-size: 1em;
+			margin-left:2.5em;
+			color:#6F839E;
+			letter-spacing:.15em;
+			line-height:2em;
+			text-align:left;
+			text-transform:uppercase;
+		}
+		.highlight {
+			font-weight: bold;
+			color: rgb(111,131,158);
+		}
+		.group-indent0 {
+			margin-left:0px;
+			label {
+				font-weight:bold;
+			}
+		}
+		.group-indent1 {
+			margin-left:20px;
+			label {
+				font-weight:normal;
+			}
+		}
+		.group-indent2 {
+			margin-left:40px;
+			label {
+				font-weight:normal;
+			}
+		}
+		.group-indent3 {
+			margin-left:60px;
+			label {
+				font-weight:normal;
+			}
+		}
+		.group-indent4 {
+			margin-left:80px;
+			label {
+				font-weight:normal;
+			}
+		}
+		.label-after {
+			span#idcc-tooltip,
+			span#naf-tooltip {
+				color:#1BD2A4;
+			}
+			.tooltip {
+				.tooltip-arrow {
+					display:none;
+				}
+				.tooltip-inner {
+					background-color:unset;
+					padding:unset;
+				}
+			}
+		}
+		div#sGroup11 {
+			.row {
+				img {
+					display: inline-block;
+					margin: 1.2em;
+					border: 1px solid darkgrey;
+				}
+				.label-before {
+					width: 12em;
+					display: inline-block;
+					text-width:bold;
+				}
+			}
+		}
+
+		#location_label, #situation_salarie_label, #situation_parentisole_label, #situation_cdd5years_label,
+		#situation_personnesortantcontrataide_label, #situation_cpfconnu_label, #situation_creditheurescpfconnu_label,
+		.asterisk-label {
+			font-weight:normal;
+			font-style:italic;
+			color:rgb(111,131,158);
+		}
+		.error {
+			box-shadow:0px 0px 5px 1px #f00;
+			-moz-box-shadow:0px 0px 5px 1px #f00;
+			-webkit-box-shadow:0px 0px 5px 1px #f00;
+		}
+
+		.advicetip {
+			+ .tooltip.right {
+				margin-left:10px;
+			}
+		}
+	}
+
+	.error {
+		color: red;
+		font-weight: bold;
+	}
+
+	.message {
+		.error {
+			padding: 1em 0;
+		}
+	}
+}

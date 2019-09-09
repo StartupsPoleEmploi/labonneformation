@@ -1,0 +1,9 @@
+<?php
+	$this->view('/inc/demo_widget_view.php',
+		array(
+			'noRobots'=>true,
+			'lieu'=>$this->get('lieu',''),
+			'metier'=>$this->get('metier',''),
+			'format'=>$this->get('format','')
+		));
+?>
