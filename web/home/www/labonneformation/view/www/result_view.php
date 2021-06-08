@@ -33,6 +33,7 @@
 <?php _ENDBLOCK('description'); ?>
 <?php _BEGINBLOCK('script'); ?>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+	<script src="https://anotea.pole-emploi.fr/static/js/widget/anotea-widget-loader.min.js"></script>
 	<?php $asset->add('js',array('/js/result.js')); ?>
 
 	<script>
@@ -188,12 +189,12 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-12">
-						<h2><?php _H($orga['nom']);?></h2>
+						<h2 class="titre-principal"><?php _H($orga['nom']);?></h2>
 					</div>
 				</div>
 				<div class="row block contact">
 					<div class="col-md-12">
-						<span class="titre" data-target="#infos-pratiques">Informations pratiques<span class="fa fa-chevron-down visible-xs"></span></span>
+						<span class="titre hidden-md hidden-sm hidden-lg" data-target="#infos-pratiques">Informations pratiques<span class="fa fa-chevron-down visible-xs"></span></span>
 						<div id="infos-pratiques" class="collapse-xs">
 							<?php
 								$this->view('/inc/contact_view.php',
@@ -216,6 +217,13 @@
 						</div>
 					</div>
 				</div>
+				<?php if(true): ?>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="anotea-widget" data-type="organisme" data-env="prod" data-format="liste" data-identifiant="<?php _T($orga['siret']) ?>" data-options="json-ld"></div>
+						</div>
+					</div>
+				<?php endif ?>
 			</div>
 		</div>
 		<?php if(!$domaine): ?>
@@ -225,11 +233,11 @@
 						<div class="col-md-12">
 							<h2 class="titre-avis" style="display:none;">
 								<span class="titre-nb-avis" style="display:none;">
-									Plusieurs avis de stagiaires
+									<!--Plusieurs avis de stagiaires-->
 								</span>
 								<?php if($nbDomaines):?>
 									<span class="titre-avis-domaine" style="display:none;">
-										<?php _H($nbAvis?' sur ':'')?>
+										<!--<?php _H($nbAvis?' sur ':'')?>-->
 									</span>
 									<?php _H($nbDomaines);?> domaine<?php _H($nbDomaines>1?'s':'');?> de formation
 								<?php endif ?>
@@ -503,6 +511,22 @@
 							</h1>
 							
 						</div>
+							<?php if(defined('SHOW_COVID19') && SHOW_COVID19===true): ?>
+							<div class="row block-annonce covid19" data-tx="4" data-date="1" data-dist="0" style="border-top: 2px solid #ff8481; background-color: #ff848126;" >
+								<div class="col-md-12">
+									<div class="row">
+										<div class="block-info-formation">
+											<div class="col-md-12 titre-formation">
+											<h3>
+												Plus de 100 formations à distance gratuites et rémunérées pour développer vos compétences sans perdre de temps ! En cliquant <a target="_blank" href="https://candidat.pole-emploi.fr/formations/recherche?financementPossibleOrganismeFinanceur=4&formationCPFPublicConcerne=3&modaliteEnseignement=1&quoi=COVID-19&range=0-9&tri=0">ici</a>.<br/>
+												Vous pouvez préciser votre recherche en complétant par un mot clef supplémentaire, exemple : infographie
+											</h3>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<?php endif ?>
 
 						<?php $i=0; foreach($adList as $line): $i++; ?>
 							<?php
@@ -519,6 +543,7 @@
 											<div class="col-md-10 titre-formation">
 												<h2><a href="<?php $this->rw('/detail.php',array('ar'=>$line));?>"><?php _T(highlight($line['intitule'],$criteria['search'])); ?></a></h2>
 												<?php if (0 /*$line['pic']*/): ?><a data-toggle="modal" data-target="#info-pic" style="cursor:pointer;"><span class="pic">PIC</span></a><?php endif?>
+												<?php if (defined('SHOW_COVID19') && SHOW_COVID19===true && $line['codefinanceur[0]']==4 && $line['a-distance']): ?><span class="financeepe">Financée par Pôle emploi</span><span class="covidfoad">100% à distance</span><?php endif?>
 												<?php if ($line['contratapprentissage']): ?><span class="btn tags">Apprentissage</span><?php endif?>
 												<?php if ($line['contratprofessionnalisation']): ?><span class="btn tags">Professionnalisation</span><?php endif?>
 											</div>
@@ -574,9 +599,11 @@
 												<div class="col-md-4 duree-session">
 													<?php if($duration): ?>
 														<h4>Durée</h4>
-														<span class="info">
+														<div class="info">
+															<div>
 															<?php _H($duration);?> heure<?php _T($duration>1?'s':''); ?>
-														</span>
+															</div>
+														</div>
 													<?php endif ?>
 												</div>
 												<div class="col-md-3 col-xs-12 block-info-formation en-savoir-plus text-sm-right text-md-right text-lg-right text-xs-center">

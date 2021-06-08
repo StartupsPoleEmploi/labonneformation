@@ -170,7 +170,7 @@
 
 			<div class="row" id="immersion-bouton-tester">
 				<div class="col-md-12 text-center">
-					<a href="/stage" class="btn" onclick="track('IMMERSION HOME CTA');">Tester un métier</a>
+					<a href="<?php $this->rw('/immersion.php');?>" class="btn" onclick="track('IMMERSION HOME CTA');">Tester un métier</a>
 				</div>
 			</div>
 		</div>

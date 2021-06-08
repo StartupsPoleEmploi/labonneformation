@@ -86,9 +86,9 @@
 			<p>L’utilisation du site internet <a href="/"><?php _H(DOMAIN);?></a> est soumise au respect par l’utilisateur de :</p>
 
 			<ul>
-				<li>la législation française,</li>
-				<li>les présentes conditions d’utilisation, </li>
-				<li>les conditions d’utilisation de l’Emploi store disponible à l’adresse suivante : <a href="http://www.emploi-store.fr/portail/conditionsgeneralesutilisation" target="_blank">www.emploi-store.fr</a></li>
+				<li>la législation française</li>
+				<li>les présentes conditions d’utilisation</li>
+				<li>les conditions d’utilisation de l’Emploi store disponible à l’adresse suivante : <a href="https://pole-emploi.io/cgu" target="_blank">www.pole-emploi.io</a></li>
 			</ul>
 
 			<p>Les présentes conditions d’utilisation peuvent être modifiées à tout moment &#59; la date de mise à jour est mentionnée. Ces modifications sont opposables à l’utilisateur dès leur mise en ligne sur le site internet <a href="/"><?php _H(DOMAIN)?></a>. L’utilisateur est donc invité à consulter régulièrement la dernière version mise à jour.</p>
@@ -100,18 +100,59 @@
 			<p>Sans préjudice des dispositions prévues à l’article L.342-3 du code de la propriété intellectuelle, toute représentation, reproduction ou diffusion, intégrale ou partielle de la base de données, sur quelque support que ce soit, sans l'autorisation expresse et préalable de Pôle emploi est sanctionné au titre des articles L.343-1 et suivants du même code.</p>
 			<p>Par ailleurs, la marque Pôle emploi est protégée au titre des articles L.712-1 et suivants du code de la propriété intellectuelle. Toute représentation, reproduction ou diffusion, intégrale ou partielle de la marque Pôle emploi, sur quelque support que ce soit, sans l'autorisation expresse et préalable de Pôle emploi constitue un acte de contrefaçon, sanctionné au titre des articles L.716-1 du même code.</p>
 
-			<h2 id="cookies">7. Cookies</h2>
+			<h2 id="cookies">7. Cookies et autres traceurs</h2>
 
-			<p>
-				<a href="/"><?php _H(DOMAIN)?></a> utilise des cookies. Ces cookies enregistrent uniquement des informations relatives à la navigation de l’utilisateur sur le site internet <a href="/"><?php _H(DOMAIN)?></a> dans un but d’analyses statistiques. En aucun cas, <a href="/"><?php _H(DOMAIN)?></a> ne peut identifier un utilisateur par un cookie.
-				Les cookies tiers sont émis par les sociétés Google et Hotjar.
-			</p>
-			<p>Les cookies déposés par le site <a href="/"><?php _H(DOMAIN)?></a> sont nécessaires à son bon fonctionement.</p>
-			<p>La durée de conservation des informations relatives à la navigation est de 10 ans.</p>
-			<p>Les informations de session sont supprimées dès la déconnexion.</p>
-			<p>L’utilisateur peut s’opposer à l'enregistrement des cookies tiers via le bouton "Personaliser".</p>
+			<h3>7.1. Qu'est-ce qu'un cookie ?</h3>
 
-			<p>A défaut, l’utilisateur accepte les cookies en poursuivant sa navigation.</p>
+			<p>Un cookie est un petit fichier texte déposé sur le terminal des utilisateurs (par  exemple un ordinateur, une tablette, un « Smartphone», etc.) lors de la visite d’un site internet.</p>
+			<p>Il contient plusieurs données : le nom du serveur qui l’a déposé, un identifiant sous forme de numéro unique, et une date d’expiration. Les cookies ont différentes fonctionnalités. Ils ont pour but d’enregistrer les paramètres de langue d’un site, de collecter des informations relatives à votre navigation sur les sites, d’adresser des services personnalisés, etc.</p>
+			<p>Seul l’émetteur d’un cookie est susceptible de lire, enregistrer ou de modifier les informations qui y sont contenues.</p>
+
+			<h3>7.2. Les cookies déposés sur le site</h3>
+
+			<p>Sous réserve du choix de l’utilisateur, plusieurs cookies peuvent être utilisés sur le site internet <a href="/"><?php _H(DOMAIN)?></a>. Les différentes finalités de ces cookies sont décrites ci-dessous.</p>
+
+			<p><strong>Cookies strictement nécessaires au fonctionnement du site</strong></p>
+
+			<p>Des cookies sont utilisés sur le site <a href="/"><?php _H(DOMAIN)?></a> pour permettre le bon fonctionnement du site internet et l’utilisation des principales fonctionnalités du site.</p>
+			<p>Ces cookies ne sont pas soumis au consentement de l’utilisateur. Ils permettent par exemple le maintien de la connexion ou la conservation du choix de l’usager sur le dépôt des cookies. Sans ces cookies, l’utilisation du site peut être dégradée et l’accès à certains services être rendu impossible. Il est déconseillé de les désactiver.</p>
+			<p>L’utilisateur peut cependant s’opposer à leur dépôt en suivant les indications données au point 7.3. Ces cookies sont exclusivement déposés par Pôle emploi.</p>
+
+			<p><strong>Cookies statistiques ou de mesure d’audience</strong></p>
+
+			<p>Des cookies sont utilisés sur le site <a href="/"><?php _H(DOMAIN)?></a> afin d’effectuer de la mesure d’audience, des analyses statistiques dans le but d'améliorer l'expérience utilisateur et la performance du site internet. Ces cookies sont déposés par des tiers pour le compte de Pôle emploi.</p>
+			<p>Concernant le dépôt des cookies Google Analytics, la société Google collecte par l’intermédiaire de ce cookie des données pour son propre compte dans les conditions définies dans sa politique de confidentialité accessible par le <a href="https://policies.google.com/technologies/partner-sites?gl=fr" target="_blank">lien suivant</a>.</p>
+			<p>L’utilisateur peut paramétrer le dépôt des cookies en suivant les indications données au point 7.3. Le fait de refuser la mise en œuvre de tels cookies n'a pas d'incidence sur la navigation sur le site.</p>
+
+			<!--
+			<p><strong>Cookies permettant le fonctionnement de l’outil de messagerie instantanée</strong></p>
+
+			<p>Des cookies sont utilisés sur le site <a href="/"><?php _H(DOMAIN)?></a> afin de permettre la mise en relation entre les usagers et les équipes du site par l’intermédiaire d’un outil de messagerie instantanée. Ces cookies sont déposés par des tiers pour le compte de Pôle emploi.</p>
+			<p>Le refus du dépôt de ces cookies n’a pas d’incidence sur l’utilisation des fonctionnalités principales du site. En revanche, l’utilisation de l’outil de messagerie instantanée sera rendu impossible. L’utilisateur peut paramétrer le dépôt des cookies en suivant les indications données au point 7.3.</p>
+			<p>Pour plus d’informations sur les cookies notamment sur le type de cookies déposés ainsi que leurs finalités précises, vous pouvez consulter la plateforme de gestion du consentement, <a href="#" onclick="tC.privacyCenter.showPrivacyCenter();return false">disponible ici</a>.</p>
+			-->
+
+			<h3>7.3. Accepter ou refuser les cookies</h3>
+
+			<p>L’utilisateur dispose de différents moyens pour gérer ses choix en matière de cookies. Les modalités de gestion diffèrent selon que le cookie est soumis ou non à consentement préalable. L’utilisateur peut modifier ses choix à tout moment. Pour information, le paramétrage des cookies est susceptible de modifier les conditions de navigation sur le site internet <a href="/"><?php _H(DOMAIN)?></a>, ainsi que les conditions d’accès à certains services et d’entrainer des dysfonctionnements de certaines fonctionnalités.</p>
+
+			<p><strong>La plateforme de gestion du consentement</strong></p>
+
+			<p>Pour les cookies donnant lieu à consentement préalable, l’utilisateur peut accepter ou refuser le dépôt de tout ou partie des cookies, à tout moment, en formulant des choix sur la plateforme de gestion du consentement <a href="#" onclick="tC.privacyCenter.showPrivacyCenter();return false">via ce lien dédié</a>.</p>
+
+			<p><strong>Le paramétrage du navigateur</strong></p>
+
+			<p>L’utilisateur peut accepter ou refuser le dépôt de tout ou partie des cookies, à tout moment, en modifiant les paramètres de son navigateur (consulter la fonction « Aide » du navigateur pour en savoir plus) ou en se rendant sur l'une des pages suivantes, selon le navigateur utilisé :</p>
+
+			<ul>
+				<li><a target="_blank" href="https://support.google.com/chrome/answer/95647?hl=fr">Google Chrome</a></li>
+				<li><a target="_blank" href="https://support.microsoft.com/fr-fr/help/17442">Internet Explorer</a></li>
+				<li><a target="_blank" href="https://support.mozilla.org/fr/kb/activer-desactiver-cookies">Mozilla Firefox</a></li>
+				<li><a target="_blank" href="https://support.apple.com/fr-fr/guide/safari/sfri11471/mac">Safari</a></li>
+			</ul>
+
+			<p>Pour information, la plupart des navigateurs acceptent par défaut le dépôt de cookies. L'utilisateur peut modifier ses choix en matière de cookies à tout moment. Le paramétrage des cookies est susceptible de modifier les conditions de navigation sur le site internet, ainsi que les conditions d'accès à certains services, et d'entrainer des dysfonctionnements de certaines fonctionnalités.</p>
+			<p>Pour plus d’informations sur les cookies et les moyens permettant d’empêcher leur installation, l’utilisateur peut se rendre sur la page dédiée sur <a href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser" target="_blank">le site internet de la CNIL</a>.</p>
 		</div>
 	</div>
 <?php _ENDBLOCK('content'); ?>

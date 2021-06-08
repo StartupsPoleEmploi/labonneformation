@@ -56,7 +56,12 @@
 			if($modalite=$this->get('modalite')) $s['modalite']=$modalite;
 			if($contratapprentissage=$this->get('contratapprentissage')) $s['contratapprentissage']=$contratapprentissage;
 			if($contratprofessionnalisation=$this->get('contratprofessionnalisation')) $s['contratprofessionnalisation']=$contratprofessionnalisation;
+			if($codeFinanceur=$this->get('codefinanceur')) $s['codefinanceur']=$codeFinanceur;
 			if($cpf=$this->get('cpf')) $s['tri_cpf']=true; else $s['tri_cpf']=false;			
+
+			$limit=$this->get('limit',array(100));
+			$limit=array_pop($limit);
+			if($limit>400) $limit=400; //limite maximum à 400 annonces par liste, 100 par défaut
 
 			$financement=$this->get('financement');
 			if ($financement) {
@@ -75,7 +80,7 @@
 
 			$isSuccess=false;
 			//$adList=$adSearch->getList($s,$distance);
-			$adList=$adSearch->getListNew($s+array('distance'=>$distance),0);
+			$adList=$adSearch->getListNew($s+array('distance'=>$distance),0,$limit);
 			if($adList!==false)
 			{
 				$isSuccess=true;
@@ -88,7 +93,7 @@
 						$s['search']=$search;
 						$isSuccess=false;
 						//$adList=$adSearch->getList($s,$distance);
-						$adList=$adSearch->getListNew($s+array('distance'=>$distance),0);
+						$adList=$adSearch->getListNew($s+array('distance'=>$distance),0,$limit);
 						if($adList!==false) $isSuccess=true;
 						$searchCorrected=true;
 					}

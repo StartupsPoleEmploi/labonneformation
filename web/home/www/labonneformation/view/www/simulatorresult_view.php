@@ -258,6 +258,9 @@
 								<div class="plafondpriseencharge remu"><?php _T($v['plafondpriseencharge']?'<strong>Plafond de prise en charge</strong><br/>'.$v['plafondpriseencharge']:'');?></div>
 								<div class="remu"><?php _T($v['indemnisation']?'<strong>Rémunération mensuelle</strong><br/>'.$v['indemnisation']:'');?>
 								<?php _T($v['finremuneration']?'<br/>jusqu\'au '.date('d/m/Y',$v['finremuneration']):'');?></div>
+								<div class="remu"><?php _T($v['rff']?'<strong>Rémunération de fin de formation</strong><br/>'.$v['rff']:'');?>
+								<?php _T($v['debutrff']?'<br/>du '.date('d/m/Y',$v['debutrff']):'');?>
+								<?php _T($v['finrff']?'<br/>jusqu\'au '.date('d/m/Y',$v['finrff']):'');?></div>
 
 								<div class="organisme remu">
 									<?php if(is_array($v['organisme'])): ?>
@@ -301,12 +304,14 @@
 							<?php endif ?>
 						</div>
 					</div>
+					<?php if(CONTACT_MAIL): ?>
 					<div class="block-actions anomalie">
 							<div class="col-md-12 text-center">
 								<h5>Signaler une anomalie<br/>sur votre simulation</h5>
 								<a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'Anomalie financement','body'=>"Explication de l'anomalie sur les dispositifs de financement :\n\n\n\nURL de la page concernée : ".URL_BASE.$this->rewrite('/simulatorresult.php',array('cmd'=>'engage')+$this->get())));?>" class="btn"><span class="fa fa-exclamation-triangle fa-picto"></span></a>
 							</div>
 					</div>
+					<?php endif ?>
 				<?php else: ?>
 					<div class="block-actions">
 						<div class="col-md-12 text-center">

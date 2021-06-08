@@ -99,7 +99,7 @@
 				{
 					// on met les flags publiques sont forme de booleen
 					$properties=array(
-						'contrat-professionnalisation'=>'CONTRATPROFESSIONALISATION',
+						'contrat-professionnalisation'=>'CONTRATPROFESSIONNALISATION',
 						'contrat-apprentissage'=>'CONTRATAPPRENTISSAGE',
 						'entrees-sorties-permanentes'=>'ENTREESSORTIESPERMANENTES',
 						'certifiante'=>'CERTIFIANTE',

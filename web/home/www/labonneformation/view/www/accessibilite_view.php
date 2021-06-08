@@ -37,9 +37,11 @@
 					<p>Vous pouvez nous aider à améliorer l’accessibilité du site en nous signalant les problèmes éventuels que vous rencontrez.</p>
 					<br>
 				</div>
+				<?php if(CONTACT_MAIL):?>
 				<div class="col-md-12">
 					<a class="btn secondaire contacter" href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'Améliorations accessibilité numérique'));?>">Contacter l'équipe la bonne formation</a>
 				</div>
+				<?php endif ?>
 			</div>
 		</div>
 	</div> 

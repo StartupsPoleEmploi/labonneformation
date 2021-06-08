@@ -77,7 +77,7 @@
 	$explainLink=array();
 	if(is_array($display['trefleparams']))
 		$explainLink=array('explainLink'=>array(
-			'trefleLink'=>URL_API_TREFLE.'/explorer/#simulate/',
+			'trefleLink'=>URL_API_TREFLE.'/explorer/simulateur#simulate/',
 			'simulLink'=>$this->rewrite(
 				'/simulatorresult.php',
 				array_merge(array( 'cmd'=>'explain'),$display['trefleparams'])

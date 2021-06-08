@@ -9,13 +9,14 @@
 
 <?php _BEGINBLOCK('script'); ?>
 	<?php $asset->add('js',array('/js/detail.js')); ?>
-	<script src="https://anotea.beta.pole-emploi.fr/static/js/widget/anotea-widget-loader.min.js"></script>
+	<script src="https://anotea.pole-emploi.fr/static/js/widget/anotea-widget-loader.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			initDetail({
 				"romes": <?php _JS(implode(' ',$ar['codes-rome,array()']->toArray()));?>,
 				"location": <?php _JS(str_replace('/','_',$ar['sessions[0]/localisation/formation/path']));?>,
 				"displayjobs": <?php _T(in_array($ar['codes-formacode[0]'],explode(',',TRE_FORMACODEEXCEPTION)) || in_array(substr($ar['codes-formacode[0]'],0,3),explode(',',TRE_DOMAINEXCEPTION))?'false':'true');?>,
+				"alternance": <?php _JS(in_array('CONTRATPROFESSIONNALISATION',$ar['caracteristiques,array()']->toArray())?'professionnalisation':(in_array('CONTRATAPPRENTISSAGE',$ar['caracteristiques,array()']->toArray())?'apprentissage':''));?>,
 			});
 
 			sessions=[["<?php _T($ar['uid'].'","'.$ar['sessions[0]/uida'].'","'.$ar['sessions[0]/uid']) ?>"]];
@@ -48,6 +49,11 @@
 	<div class="row">
 		<div class="col-md-8 section-annonce">
 			<h1><?php _H($ar['intitule']);?></h1>
+			<?php if (defined('SHOW_COVID19') && SHOW_COVID19===true && $ar['sessions[0]/financeurs[0]/code']==4 && $ar['caracteristiques[0]']=='ADISTANCE'): ?>
+				<div class="tags text-right">
+					<span class="financeepe">Financée par Pôle emploi</span><span class="covidfoad">100% à distance</span>
+				</div>
+			<?php endif?>
 		</div>
 	</div>
 
@@ -271,7 +277,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12 block contact">
-							<span class="titre" data-target="#contact">Informations pratiques<span class="fa fa-chevron-down visible-xs"></span></span>
+							<span class="titre hidden-md hidden-sm hidden-lg" data-target="#contact">Informations pratiques<span class="fa fa-chevron-down visible-xs"></span></span>
 
 							<div id="contact" class="contact collapse-xs">
 								<?php

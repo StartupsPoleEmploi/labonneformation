@@ -19,10 +19,11 @@
 		<div class="col-md-12">
 			<div class="block">
 				<h1>
-					<!-- Explications -->
+					Le site est en maintenance et devrait réouvrire d'ici 10 min.
 				</h1>
 				<span class="evol">
-					<!-- En details -->
+					Evolution en cours de déploiement :<br/>
+					- ajout de la liste des dates de sessions sur les pages de détail des annonces.<br/>
 				</span>
 				<br/>
 			</div>

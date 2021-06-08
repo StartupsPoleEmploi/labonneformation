@@ -7,19 +7,30 @@
 	$romes=$this->get('rome',array());
 	if($romes && !is_array($romes)) $romes=explode(' ',$romes);
 	$locationPath=$this->get('locationpath','');
+	$alternance=$this->get('alternance','');
+	$alternances=array('apprentissage'=>'APPRENTISSAGE',
+		'professionnalisation'=>'PROFESSIONNALISATION');
+	if (array_key_exists($alternance,$alternances)) {
+		$alternance=$alternances[$alternance];
+	} else {
+		$alternance='';
+	}
 	$tab=array();
 	$totalNbOffers=0;
 
 	$db=$this->getStore('read');
-
 	/* Récupe un tableau du nb d'annonce PE par romes dans le lieu donné */
 	if(!empty($romes) && !empty($locationPath))
 	{
-		if($offers=Tools::getPeOffers($db,$romes,$locationPath))
+		if($offers=Tools::getPeOffers($db,$romes,$locationPath,$alternance))
 		{
 			$totalNbOffers=$offers['total'];
 			$tab=$offers['offers'];
 			if(!$totalNbOffers) $tab=array(); /* On affiche pas la liste si aucune offre */
+		}
+		if($offersHorsAlternance=Tools::getPeOffers($db,$romes,$locationPath,''))
+		{
+			$totalNbOffersHorsAlternance=$offersHorsAlternance['total'];
 		}
 	}
 
@@ -34,7 +45,7 @@
 	$searchLocation='France';
 	if(USE_APILBB!==false) /* Dans params.php: supprime ou non l'utilisation de l'API LBB */
 		if(!empty($romes) && $romes[0])
-			if($apiLbb=Tools::apiGetLbb($db,$romes[0],$locationPath))
+			if($apiLbb=Tools::apiGetLbb($db,$romes[0],$locationPath,($alternance!=''?true:false)))
 			{
 				$lbbUrlList=$apiLbb['companies_url'];
 				$companies=$apiLbb['companies'];
@@ -53,7 +64,18 @@
 <div id="ajaxoffers">
 	<div class="pole-emploi">
 		<?php if(!$totalNbOffers): ?>
-			Attention aucun employeur ne propose aujourd’hui d’offres d’emploi sur pole-emploi.fr en lien avec cette formation<?php if($dep):?> autour de &laquo;&nbsp;<?php _H($dep);?>&nbsp;&raquo;<?php endif ?>
+			Attention aucun employeur ne propose aujourd’hui d’offres d’emploi <?php _H($alternance!='' ? 'en alternance ' : '') ?>sur pole-emploi.fr en lien avec cette formation<?php if($dep):?> autour de &laquo;&nbsp;<?php _H($dep);?>&nbsp;&raquo;<?php endif ?>
+
+			<?php if($alternance!=''): ?>
+			<h3 style="margin-top:20px;">
+				<?php if($totalNbOffersHorsAlternance==1): ?>
+					<?php displayCondLink($totalNbOffersHorsAlternance.' offre d\'emploi hors alternance');?>
+				<?php else: ?>
+					<?php displayCondLink($totalNbOffersHorsAlternance.' offres d\'emploi hors alternance');?>
+				<?php endif ?>
+				<span class="minus">en lien avec cette formation autour de &laquo;&nbsp;<?php _H($dep);?>&nbsp;&raquo;</span>
+			</h3>
+			<?php endif ?>
 		<?php else: ?>
 			<h3>
 				<?php if($totalNbOffers==1): ?>
@@ -80,7 +102,7 @@
 			<h3>
 				<a href="<?php _T($lbbUrlList);?>" target="_blank"><strong><?php _T($apiLbb['companies_count']);?> employeur<?php _H((int)$apiLbb['companies_count'] > 1 ? 's' : '') ?></strong></a>
 				<span class="minus">
-					<?php _H((int)$apiLbb['companies_count'] > 1 ? 'sont susceptibles' : 'est susceptible'); ?> de recruter après cette formation, dont :
+				<?php _H((int)$apiLbb['companies_count'] > 1 ? 'sont susceptibles' : 'est susceptible'); ?> de recruter <?php _H($alternance!='' ? 'en alternance ' : '') ?>après cette formation, dont :
 				</span>
 			</h3>
 			<div>

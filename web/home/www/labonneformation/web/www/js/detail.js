@@ -26,10 +26,10 @@ function initFollowLink() {
 	}
 }
 
-function ajaxStats(romes,locationPath,displayJobs) {
+function ajaxStats(romes,locationPath,displayJobs,alternance) {
 	if(displayJobs)
 		$.ajax({
-			url:"/ws/ws_getpeoffers.php?rome="+encodeURI(romes)+"&locationpath="+locationPath,
+			url:"/ws/ws_getpeoffers.php?rome="+encodeURI(romes)+"&locationpath="+locationPath+"&alternance="+alternance,
 			//dataType:'text/html',
 			success:function(result) {
 				$("#ajaxstats").html("")
@@ -59,10 +59,11 @@ function initDetail(params) {
 	var romes=params.romes;
 	var locationPath=params.location.replace(/_/g,'/');
 	var displayJobs=params.displayjobs;
+	var alternance=params.alternance;
 
 	//$("#onglet-taux").gauge({type:"cam",'fontSizeFact':1.6,'borderFact':1.5,'effect':'shadow','backColor':'#C4D3E7','startColor':'#003173','stopColor':'#336DA1','animate':false});
 
-	ajaxStats(romes,locationPath,displayJobs);
+	ajaxStats(romes,locationPath,displayJobs,alternance);
 	$(".block-perspective").click(function(){
 		$(this).find(".info-retour-emploi").slideToggle();
 	});

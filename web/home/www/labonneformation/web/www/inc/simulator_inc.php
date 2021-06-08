@@ -152,12 +152,12 @@
 						$group6->add('number','situation_creditheurescpf')->value($quark->get('situation_creditheurescpf'))->attr('placeholder','Votre crédit en euro')->attr('indent','1')->attr('min','0')
 						       ->condition(array('showif'=>'cpf1.checked && !cpf2.checked && !cpf3.checked','match'=>'#^\d+$#','min'=>0));
 						$group6->add('label','situation_cpfconnu_label')
-						       ->content("Attention : assurez-vous bien d'avoir <a href=\"https://espaceprive.moncompteformation.gouv.fr/sl5-portail-web/login\" target=\"_blank\">activé votre Compte Personnel Formation</a> pour pouvoir mobiliser vos heures CPF",true)->attr('indent','1')
+						       ->content("Attention : assurez-vous bien d'avoir <a href=\"https://www.moncompteformation.gouv.fr/espace-prive/html/#/compte-utilisateur/connexion\" target=\"_blank\">activé votre Compte Personnel Formation</a> pour pouvoir mobiliser vos heures CPF",true)->attr('indent','1')
 						       ->condition(array('showif'=>'cpf1.checked && !cpf2.checked && !cpf3.checked && situation_creditheurescpf.val!=""','match'=>'#^\d+$#'));
 					$group6->add('radio','situation_cpfconnu','cpf2')->value('cpfinconnu')->checked($quark->get('situation_cpfconnu')=='cpfinconnu'?true:false)->attr('label-after',"Vous ne connaissez pas vos droits à formation CPF en euros")
 					       ;//->condition(array('mandatory'=>true));
 						$group6->add('label','situation_creditheurescpfconnu_label')
-						       ->content("Activez votre <a href=\"http://www.moncompteformation.gouv.fr/mon-compte-personnel-de-formation/mes-droits/mon-compte-dheures/mes-heures-cpf\" target=\"_blank\">Compte Personnel Formation (CPF)</a>.",true)->attr('indent','1')
+						       ->content("Activez votre <a href=\"https://www.moncompteformation.gouv.fr/espace-prive/html/#/compte-utilisateur/connexion\" target=\"_blank\">Compte Personnel Formation (CPF)</a>.",true)->attr('indent','1')
 						       ->condition(array('showif'=>'cpf2.checked && !cpf1.checked && !cpf3.checked'));
 					$group6->add('radio','situation_cpfconnu','cpf3')->value('cpfempty')->checked($quark->get('situation_cpfconnu')=='cpfempty'?true:false)->attr('label-after',"Vous n'avez pas de crédit de formation CPF");
 		}

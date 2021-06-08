@@ -233,12 +233,12 @@ function initAvisResult(sessions,isDomaine) {
 				$("#domaine-note-moyenne-"+key).addClass("note-"+Math.floor(noteMoyenne/nombreAvisDansDomaine));
 			}
 
-			if (tousLesAvis.length>0) {
-				$(".titre-avis-domaine").text(" sur ").show();
-				$(".titre-nb-avis").text(tousLesAvis.length+" avis de stagiaire ").show();
-			} else {
-				$(".titre-nb-avis").text("0"+" avis de stagiaire ").show();
-			}
+//			if (tousLesAvis.length>0) {
+//				$(".titre-avis-domaine").text(" sur ").show();
+//				$(".titre-nb-avis").text(tousLesAvis.length+" avis de stagiaire ").show();
+//			} else {
+//				$(".titre-nb-avis").text("0"+" avis de stagiaire ").show();
+//			}
 			$(".titre-avis").show();
 	}, 'json');
 }

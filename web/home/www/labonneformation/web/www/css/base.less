@@ -350,7 +350,7 @@ select {
 			padding-top: 5rem;
 			padding-bottom: 11rem;
 		}
-		.pic {
+		.financeepe, .covidfoad, .pic {
 			border-radius: 2px;
 			text-transform: uppercase;
 			font-size: 12px;
@@ -363,7 +363,11 @@ select {
 			position: relative;
 			margin-left: 2px;
 		}
-		.pic:before {
+		.financeepe {
+			padding: 5px 8px 5px 8px;
+			background-color: #17b58d;
+		}
+		.covidfoad:before, .pic:before {
 			content: '';
 			display: inline-block;
 			background: #fff;
@@ -376,7 +380,7 @@ select {
 			top: 4px;
 			left: 5px;
 		}
-		.pic:after {
+		.covidfoad:after, .pic:after {
 			content: '';
 			display: inline-block;
 			background: #0C438F;
@@ -570,37 +574,37 @@ select {
 	}
 }
 
-/* Bandeau cookie */
-.bandeau-cookie, #tarteaucitronRoot, #tarteaucitronAlertBig {
-	background-color: rgba(33,33,33,0.9)!important;
-	color: white;
-	text-align: center;
-	line-height: 2.5em;
-	padding: 2px;
-	vertical-align: middle;
-	position: relative;
-	top: 0;
-
-	input[type=button], #tarteaucitronPersonalize {
-		color: white;
-		background-color: @back-button-color!important;
-		border-radius: 5px;
-		border: 0;
-		padding: 0 20px;
-		margin-left: 10px;
-	}
-	a {
-		color: white;
-		text-decoration: underline;
-	}
-	input[type=button]:hover {
-		background-color: rgba(34,114,186,.5);
-	}
-	#tarteaucitronDisclaimerAlert, #tarteaucitronPersonalize, #tarteaucitronCloseAlert {
-		font-family: @font-family-principale!important;
-		font-weight: bold!important;
-	}
-}
+/* Bandeau cookie tarte au citron */
+// .bandeau-cookie, #tarteaucitronRoot, #tarteaucitronAlertBig {
+// 	background-color: rgba(33,33,33,0.9)!important;
+// 	color: white;
+// 	text-align: center;
+// 	line-height: 2.5em;
+// 	padding: 2px;
+// 	vertical-align: middle;
+// 	position: relative;
+// 	top: 0;
+// 
+// 	input[type=button], #tarteaucitronPersonalize {
+// 		color: white;
+// 		background-color: @back-button-color!important;
+// 		border-radius: 5px;
+// 		border: 0;
+// 		padding: 0 20px;
+// 		margin-left: 10px;
+// 	}
+// 	a {
+// 		color: white;
+// 		text-decoration: underline;
+// 	}
+// 	input[type=button]:hover {
+// 		background-color: rgba(34,114,186,.5);
+// 	}
+// 	#tarteaucitronDisclaimerAlert, #tarteaucitronPersonalize, #tarteaucitronCloseAlert {
+// 		font-family: @font-family-principale!important;
+// 		font-weight: bold!important;
+// 	}
+// }
 
 .new {
 	font-weight: bold;
@@ -952,4 +956,3 @@ select {
 		}
 	}
 }
-

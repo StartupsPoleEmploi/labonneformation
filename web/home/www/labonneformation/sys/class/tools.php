@@ -210,8 +210,8 @@
 			$params=array();
 
 			if($contract=='CDD' || $contract=='CDI') $params['typeContrat']=$contract;
-			if($contract=='ALTERNANCE') $params['natureOffre']='E2';
-			if($contract=='PROFESSIONALISATION') $params['natureOffre']='FS';
+			if($contract=='APPRENTISSAGE') $params['natureOffre']='E2';
+			if($contract=='PROFESSIONNALISATION') $params['natureOffre']='FS';
 
 			if($locationPath)
 				if(($level=Reference::getLevelFromPath($locationPath))>=3)
@@ -247,17 +247,17 @@
 		}
 		static function getNbPEOffers($db,$rome,$locationPath='',$contract='')
 		{
-			$cache=new QCache(3600*24,array('mode'=>'FILE'));
+			//$cache=new QCache(3600*24,array('mode'=>'FILE','group'));
 			$nb=0;
 			$key=sprintf('TOOLS_GETNBPEOFFERS:%s_%s_%s',$rome,$locationPath,$contract);
-			if(($return=$cache->get($key,false))!==false) return $return;
 
+			//if(($return=$cache->get($key,false))!==false) return $return;
 			$page=self::getUrlContent(self::getPeSearchLink($db,$rome,$locationPath,$contract));
 			if(preg_match("#<h1.*?>(.*?)</h1>#sim",$page,$m))
 				if(preg_match("#(\d+) offre#i",$m[1],$m))
 					$nb=$m[1];
 
-			$cache->set($key,$nb);
+			//$cache->set($key,$nb);
 			return $nb;
 		}
 		static function getPeOffers($db,$romes,$locationPath='',$contract='')
@@ -425,14 +425,14 @@
 		{
 			return self::calcDiffDate(date('Y-m-d',$b),date('Y-m-d',$e),$mode);
 		}
-		static function apiGetLbb($db,$rome_codes,$locationPath,$distance=10,$pageSize=3,$departements="")
+		static function apiGetLbb($db,$rome_codes,$locationPath,$lba=false,$distance=10,$pageSize=3,$departements="")
 		{
 			if(empty($rome_codes) || empty($locationPath)) return array();
 			$cache=new QCache(3600*1,array('mode'=>'FILE','group'=>'apilbb'));
 			if(!is_array($rome_codes)) $rome_codes=array($rome_codes);
 			sort($rome_codes); //Pour la clef de cache, les codes ROME seront toujours dans le meme ordre
 			$pmsmp=1;
-			$key=sprintf('TOOLS_APIGETLBB:%s_%s_%d_%s_*d',implode('|',$rome_codes),$locationPath,$distance,str_replace(',','',$departements),$pmsmp);
+			$key=sprintf('TOOLS_APIGETLBB:%s_%s_%s_%d_%s_*d',implode('|',$rome_codes),$lba?'lba':'lbb',$locationPath,$distance,str_replace(',','',$departements),$pmsmp);
 			$romeCode=$rome_codes[0];//implode(',',$rome_codes),
 			if(empty($romeCode)) return array();
 			if(($return=$cache->get($key,false))!==false) return $return;
@@ -513,6 +513,7 @@
 						{
 							$params=array(
 								'commune_id'=>$codeInseeCommune,
+								'contract'=>$lba?'alternance':'',
 								'departments'=>$departements,
 								'distance'=>$distance,
 								'flag_pmsmp'=>1,
@@ -522,6 +523,7 @@
 								'timestamp'=>gmdate("Y-m-d\TH:i:s"),
 								'user'=>'labonneformation',
 							);
+							if (!$lba) {unset($params['contract']);} // Il ne doit pas y avoir le paramètre du tout pour lbb
 
 							$hmac_key=LBB_HMACKEY;
 							$params+=array('signature'=>hash_hmac('md5',http_build_query($params),$hmac_key));
@@ -534,7 +536,7 @@
 								if($json=json_decode($data,true))
 									if(isset($json['companies']))
 									{
-										$json['companies_url']=sprintf('%s/entreprises/commune/%s/rome/%s?d=%ld',URL_LBB,$ref->getExtraData('in',$loc['extradata']),$rome_codes[0],$distance);
+										$json['companies_url']=sprintf('%s/entreprises/commune/%s/rome/%s?d=%ld',URL_LBB,$ref->getExtraData('in',$loc['extradata']),$rome_codes[0],$distance); // xxx remplacer par le champ 'url' renvoyé par l'API
 										$json['search_location']=sprintf('%s (%2s)',$loc['label'],substr($loc['zipcode'],0,2));
 										$cache->set($key,$json);
 										return $json;
@@ -583,7 +585,7 @@
 							"grant_type"=>"authorization_code",
 							"code"=>$args['code'],
 							"client_id"=>ESD_CLIENTID,
-							"client_secret"=>ESDLBB_CLIENTSECRET,
+							"client_secret"=>ESD_CLIENTSECRET,
 							'redirect_uri'=>URL_BASE.'/peconnect_callback',
 						);
 						$opts=array(
@@ -639,7 +641,7 @@
 			for($i=1;$i<=3;$i++)
 			{
 				$dist=$i*10;
-				$lbb=self::apiGetLbb($db,$rome_codes,$locationPath,$dist);
+				$lbb=self::apiGetLbb($db,$rome_codes,$locationPath,false,$dist);
 				if(!empty($lbb))
 					return $lbb;
 			}

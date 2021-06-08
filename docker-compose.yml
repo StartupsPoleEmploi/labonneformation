@@ -18,6 +18,8 @@ services:
       dockerfile: dockerfile_database
     volumes:
     - "labonneformation:/var/lib/database"
+    ports:
+    - 3308:3306
 
 volumes:
   labonneformation:

@@ -23,7 +23,7 @@
 
 					<h2>Quelles sont les formations disponibles sur &laquo;&nbsp;La Bonne Formation&nbsp;&raquo;&nbsp;?</h2>
 					<p>Les informations sont collectées auprès des organismes de formations, des financeurs, et mises à jour, indexées , quotidiennement par chacun des Carif-Oref. En effet, informer sur les formations professionnelles continues dispensées en région est une des missions des Carif-Oref. Le site présente donc les organismes et les actions de formations référencés par les CARIF-OREF et accessibles sur le site <a href="http://www.intercariforef.org/reseau/" target="_blank">www.intercariforef.org/reseau/</a>.</p>
-					<p>Si vous constatez que votre organisme et/ou votre action de formation ne figure pas sur le site, vous pouvez nous en faire part par <a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'Mon organisme ou ma formation ne figure pas sur votre site'));?>">courriel</a> et directement mettre à jour les informations auprès du CARIF concerné.</p>
+					<?php if(CONTACT_MAIL): ?><p>Si vous constatez que votre organisme et/ou votre action de formation ne figure pas sur le site, vous pouvez nous en faire part par <a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'Mon organisme ou ma formation ne figure pas sur votre site'));?>">courriel</a> et directement mettre à jour les informations auprès du CARIF concerné.</p><?php endif ?>
 
 					<h2>Quels sont les dispositifs de financement qui sont disponibles et étudiés sur &laquo;&nbsp;La Bonne Formation&nbsp;&raquo;&nbsp;?</h2>
 					<p>&laquo;&nbsp;la Bonne Formation&nbsp;&raquo; intègre dans son moteur de recherche la très grande majorité des règles nationales et régionales de financement de formation pour les demandeurs d’emploi.</p>
@@ -31,7 +31,7 @@
 					<h2>Comment est mesurée l’efficacité des formations&nbsp;?</h2>
 					<p>Les formations sont triées par efficacité sur le marché du travail. L'outil analyse les données relatives aux stagiaires ayant déjà suivi les formations visées.</p>
 					<p>Précisément, il <?php _T(PARAM_DEFRETOURALEMPLOI);?></p>
-					<?php if(0): ?><p>Si vous êtes organisme de formation et que vous trouvez ce résultat surprenant, vous pouvez nous contacter par <a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'L\'efficacité que vous présentez pour mon organisme me semble surprenante'));?>">courriel</a>.</p><?php endif ?>
+					<?php if(CONTACT_MAIL): ?><p>Si vous êtes organisme de formation et que vous trouvez ce résultat surprenant, vous pouvez nous contacter par <a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'L\'efficacité que vous présentez pour mon organisme me semble surprenante'));?>">courriel</a>.</p><?php endif ?>
 
 					<h2>Peut-on réaliser les démarches en ligne jusqu’au bout&nbsp;?</h2>
 					<p>Non. &laquo;&nbsp;La Bonne Formation&nbsp;&raquo; vous propose d’abord d’avoir accès à des sessions de formation correspondant à vos recherches. Mais le site ne propose pas de vous inscrire en ligne, cette démarche se faisant auprès de l'organisme de formation.</p>
@@ -56,11 +56,11 @@
 					<p>Celui-ci vous permettra d’analyser votre situation professionnelle, de décider de la poursuite ou non de vos démarches. Et également de formaliser et mettre en œuvre votre projet d’évolution professionnelle.</p>
 					<p>Les opérateurs du CEP sont Pôle emploi, Cap emploi, l’Association pour l'emploi des cadres (APEC), les Missions locales, les Organismes Paritaires Agréés au titre du Congé Individuel de Formation (OPACIF dont les FONGECIF).</p>
 
-					<h2>A quoi sert le bouton &laquo;&nbsp;nous contacter&nbsp;&raquo;, situé en bas de page ?</h2>
+					<!--<h2>A quoi sert le bouton &laquo;&nbsp;nous contacter&nbsp;&raquo;, situé en bas de page ?</h2>
 					Ce bouton sert à contacter directement l'équipe de La Bonne Formation pour signaler une erreur, un dysfonctionnement ou poser une question sur le mode de fonctionnement de La Bonne Formation. Ce bouton n'est pas un moyen de communiquer avec les organismes de formation.
 
 					<h2>Comment signaler une erreur ?</h2>
-					Vous pouvez nous signaler une erreur en nous envoyant un mail au moyen du bouton &laquo;&nbsp;nous contacter&nbsp;&raquo;. Merci de copier l'URL de la page qui comporte l'erreur que vous avez repérée.
+					Vous pouvez nous signaler une erreur en nous envoyant un mail au moyen du bouton &laquo;&nbsp;nous contacter&nbsp;&raquo;. Merci de copier l'URL de la page qui comporte l'erreur que vous avez repérée.-->
 
 					<h2>En quoi La Bonne Formation est utile si on doit de toute façon faire valider son projet de formation par Pôle emploi pour obtenir une aide financière ?</h2>
 

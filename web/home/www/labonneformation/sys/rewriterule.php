@@ -311,6 +311,8 @@
 			$ref=new Reference($db);
 			$ret='/stage';
 
+			if(empty($args)) return $ret;
+
 			if ($args['widget']) {
 				$ret='widget-immersion';
 
@@ -320,7 +322,7 @@
 			}
 
 			$criteria=is_array($args['criteria'])?$args['criteria']:array();
-			if(!$criteria['code'] && !$criteria['rome']) return '';
+			if(!$criteria['code'] && !$criteria['rome']) return $ret;
 			if($criteria['search']) $args['motscles']=$criteria['search'];
 			if($criteria['code']) //Le path du rome
 			{

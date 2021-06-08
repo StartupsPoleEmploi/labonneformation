@@ -219,17 +219,26 @@
 										<h3 class="panel-title"><?php _T($entreprise['enseigne']);?></h3>
 									</div>
 									<div class="panel-body"<?php if ($count==1): ?>id="popover-container"<?php endif; ?>>
-										<?php if ($count==1): ?><div class="pull-right"><a data-toggle="popover" tabindex="0" role="button" data-trigger="focus" data-placement="bottom" data-content="<i class='fa fa-list-ul'></i>&nbsp;Cette liste d'entreprises est issue des données de <a href='https://labonneboite.pole-emploi.fr\' target='_blank'>La Bonne Boîte</a> de Pôle emploi qui recense des entreprises proposant le métier auquel vous  voulez vous former." data-html=true>Pourquoi ces entreprises ?</a></div><?php endif; ?>
-										<?php if ($entreprise['adresse']): ?><i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?php _T($entreprise['adresse']);?><br/><?php endif; ?>
+										<?php if ($count==1): ?>
+											<div class="pull-right">
+												<a data-toggle="popover" tabindex="0" role="button" data-trigger="focus" data-placement="bottom" data-content="<i class='fa fa-list-ul'></i>&nbsp;Cette liste d'entreprises est issue des données de <a href='https://labonneboite.pole-emploi.fr\' target='_blank'>La Bonne Boîte</a> de Pôle emploi qui recense des entreprises proposant le métier auquel vous  voulez vous former." data-html=true>Pourquoi ces entreprises ?</a>
+											</div>
+										<?php endif; ?>
+										<?php if ($entreprise['adresse']): ?>
+											<i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?php _T($entreprise['adresse']);?><br/>
+										<?php endif; ?>
 										<div class="row">
 											<div class="col-md-12 col-sm-12 col-xs-12">
 											<!--<?php if ($entreprise['email']): ?><i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:<?php _T($entreprise['email']);?>" style="overflow:hidden;text-overflow:ellipsis;overflow-wrap:break-word;display:inline-block;max-width: 100%;" onclick="track('IMMERSION CLIC EMAIL');"><?php _T($entreprise['email']);?></a><br/><?php endif; ?>
 											<?php if ($entreprise['telephonecorrespondant']): ?><i class="fa fa-phone"></i>&nbsp;&nbsp;<a href="tel:<?php _T(preg_replace('/\s+/', '',$entreprise['telephonecorrespondant']));?>" onclick="track('IMMERSION CLIC PHONE');"><?php _T($entreprise['telephonecorrespondant']);?></a><?php endif; ?>-->
-											<div style="margin-top:15px;"><a data-toggle="modal" data-target="#info-immersion" data-email="<?php _T($entreprise['email']);?>" data-phone="<?php _T($entreprise['telephonecorrespondant']);?>" style="cursor:pointer;" class="immersion-modal-link"><span class="conseils-immersion"><i class="fa fa-info"></i>Contacter l'entreprise</span></a></div>
+												<div style="margin-top:15px;">
+													<a data-toggle="modal" data-target="#info-immersion" data-email="<?php _T($entreprise['email']);?>" data-phone="<?php _T($entreprise['telephonecorrespondant']);?>" style="cursor:pointer;" class="immersion-modal-link"><span class="conseils-immersion"><i class="fa fa-info"></i>Contacter l'entreprise</span></a>
 										</div>
+											</div>
 										<!--<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="text-center" style="margin-top:15px;"><a data-toggle="modal" data-target="#info-immersion" data-email="<?php _T($entreprise['email']);?>" data-phone="<?php _T($entreprise['telephonecorrespondant']);?>" style="cursor:pointer;" class="immersion-modal-link"><span class="conseils-immersion"><i class="fa fa-info"></i>Contacter l'entreprise</span></a></div>
 										</div>-->
+										</div>
 									</div>
 								</div>
 							</div>
@@ -244,7 +253,7 @@
 				</div>
 			</div>
 
-			<div><b>Vous êtes une entreprise ? Vous pouvez <a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'Je souhaite vous contacter', 'body'=>"\nCe message sera transmis sur la boîte de La Bonne Formation, vous pouvez rédiger votre question ou nous signaler une anomalie.\n\nMerci de préciser votre SIRET : \n\nEnvoyé depuis la page ".$this->getUrl()));?>" target="_blank"">nous contacter</a>.</b></div>
+			<?php if(CONTACT_MAIL): ?><div><b>Vous êtes une entreprise ? Vous pouvez <a href="mailto:<?php _M(EMAIL_CONTACT,array('subject'=>'Je souhaite vous contacter', 'body'=>"\nCe message sera transmis sur la boîte de La Bonne Formation, vous pouvez rédiger votre question ou nous signaler une anomalie.\n\nMerci de préciser votre SIRET : \n\nEnvoyé depuis la page ".$this->getUrl()));?>" target="_blank"">nous contacter</a>.</b></div><?php endif ?>
 		</div><!-- Fin première colonne -->
 		<div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12"><!-- Seconde colonne-->
 			<!-- PDF à télécharger -->

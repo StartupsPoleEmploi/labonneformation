@@ -17,7 +17,15 @@
 			if($line['romepath']!=$line['appellationpath']) $lb.=sprintf(" (%s, ...)",$line['appellationlabel']);
 			$highlight=Tools::text2Html($lb,true,array('highlight'=>$keywords,'highlightstyle'=>array('font-weight:bold;')));
 			$label=sprintf('<span>%s</span>',$highlight);
-			$result['list'][]=array('label'=>$label,'value'=>array('label'=>$lb,'code'=>$line['romepath']/*Reference::extraData('rm',$row['extradata'])*/,'cnt'=>$line['cnt']));
+			$result['list'][]=array(
+				'label'=>$label,
+				'value'=>array(
+					'label'=>$lb,
+					'code'=>$line['romepath']/*Reference::extraData('rm',$row['extradata'])*/,
+					'rome'=>$line['romecode'],
+					'cnt'=>$line['cnt']
+				)
+			);
 		}
 	}
 	$this->header("Content-Type:","text/html; charset=utf-8");
